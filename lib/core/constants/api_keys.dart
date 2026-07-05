@@ -11,6 +11,7 @@ class ApiKeys {
   static const String id = '_id';
   static const String status = 'status';
   static const String name = 'name';
+  static const String fullName = 'fullName';
   static const String description = 'description';
 
   //? User Model Keys

@@ -1,19 +1,14 @@
-import 'package:equatable/equatable.dart';
 import 'package:skillify/core/constants/api_keys.dart';
+import 'package:skillify/features/auth/domain/entities/auth_entity.dart';
 
-class AuthModel extends Equatable {
-  final String accessToken;
-  final String refreshToken;
-  final int accessTokenExpiresInSeconds;
-  final DateTime accessTokenExpiresAt;
-  final DateTime refreshTokenExpiresAt;
-
+/// Data model for the token payload returned by login / register / refresh.
+class AuthModel extends AuthEntity {
   const AuthModel({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.accessTokenExpiresInSeconds,
-    required this.accessTokenExpiresAt,
-    required this.refreshTokenExpiresAt,
+    required super.accessToken,
+    required super.refreshToken,
+    required super.accessTokenExpiresInSeconds,
+    required super.accessTokenExpiresAt,
+    required super.refreshTokenExpiresAt,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
@@ -21,32 +16,13 @@ class AuthModel extends Equatable {
       accessToken: json[ApiKeys.accessToken] as String,
       refreshToken: json[ApiKeys.refreshToken] as String,
       accessTokenExpiresInSeconds:
-          json[ApiKeys.accessTokenExpiresInSeconds] as int,
-      accessTokenExpiresAt: DateTime.parse(
-        json[ApiKeys.accessTokenExpiresAt] as String,
-      ),
+          (json[ApiKeys.accessTokenExpiresInSeconds] as num).toInt(),
+      accessTokenExpiresAt: json[ApiKeys.accessTokenExpiresAt] != null
+          ? DateTime.parse(json[ApiKeys.accessTokenExpiresAt] as String)
+          : null,
       refreshTokenExpiresAt: DateTime.parse(
         json[ApiKeys.refreshTokenExpiresAt] as String,
       ),
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      ApiKeys.accessToken: accessToken,
-      ApiKeys.refreshToken: refreshToken,
-      ApiKeys.accessTokenExpiresInSeconds: accessTokenExpiresInSeconds,
-      ApiKeys.accessTokenExpiresAt: accessTokenExpiresAt.toIso8601String(),
-      ApiKeys.refreshTokenExpiresAt: refreshTokenExpiresAt.toIso8601String(),
-    };
-  }
-
-  @override
-  List<Object> get props => [
-    accessToken,
-    refreshToken,
-    accessTokenExpiresInSeconds,
-    accessTokenExpiresAt,
-    refreshTokenExpiresAt,
-  ];
 }
