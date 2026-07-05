@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:skillify/core/utils/colors/app_colors.dart';
+import 'package:skillify/core/utils/styles/app_styles.dart';
 
 class AppTextFormField extends StatelessWidget {
   const AppTextFormField({
     super.key,
+    this.label,
     this.hintText,
     this.keyboardType,
     this.validator,
@@ -14,6 +18,9 @@ class AppTextFormField extends StatelessWidget {
     this.textInputAction,
     this.controller,
   });
+
+  /// Optional label displayed above the field.
+  final String? label;
   final String? hintText;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
@@ -24,9 +31,10 @@ class AppTextFormField extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    final field = TextFormField(
       controller: controller,
       keyboardType: keyboardType,
       readOnly: readOnly,
@@ -42,6 +50,17 @@ class AppTextFormField extends StatelessWidget {
       validator: validator,
       onChanged: onChange,
       onTap: onTap,
+    );
+
+    if (label == null) return field;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label!, style: AppStyles.bold15.copyWith(color: AppColors.primary)),
+        const Gap(8),
+        field,
+      ],
     );
   }
 }
