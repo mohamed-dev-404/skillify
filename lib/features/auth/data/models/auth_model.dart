@@ -1,14 +1,20 @@
 import 'package:skillify/core/constants/api_keys.dart';
-import 'package:skillify/features/auth/domain/entities/auth_entity.dart';
 
-/// Data model for the token payload returned by login / register / refresh.
-class AuthModel extends AuthEntity {
+/// Token payload returned by login / register / refresh
+/// (the register endpoint auto-logs the user in).
+class AuthModel {
+  final String accessToken;
+  final String refreshToken;
+  final int accessTokenExpiresInSeconds;
+  final DateTime? accessTokenExpiresAt;
+  final DateTime refreshTokenExpiresAt;
+
   const AuthModel({
-    required super.accessToken,
-    required super.refreshToken,
-    required super.accessTokenExpiresInSeconds,
-    required super.accessTokenExpiresAt,
-    required super.refreshTokenExpiresAt,
+    required this.accessToken,
+    required this.refreshToken,
+    required this.accessTokenExpiresInSeconds,
+    required this.accessTokenExpiresAt,
+    required this.refreshTokenExpiresAt,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
