@@ -52,8 +52,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           AppSnackBar.success(context, 'Welcome back!');
-          // TODO: navigate to the main/home screen once it is ready.
-          // e.g. context.go(Routes.main);
+          pushToBase(context, Routes.completeProfile);
         } else if (state is LoginFailure) {
           AppSnackBar.error(context, state.message);
         }

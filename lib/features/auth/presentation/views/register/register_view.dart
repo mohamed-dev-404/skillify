@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skillify/core/di/service_locator.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/core/widgets/my_body_view.dart';
-import 'package:skillify/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
 import 'package:skillify/features/auth/presentation/views/widgets/register_view_body.dart';
 
 class RegisterView extends StatelessWidget {
@@ -11,13 +8,10 @@ class RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<RegisterCubit>(),
-      child: const AppScaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: MyBodyView(child: RegisterViewBody()),
-          ),
+    return const AppScaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: MyBodyView(child: RegisterViewBody()),
         ),
       ),
     );
