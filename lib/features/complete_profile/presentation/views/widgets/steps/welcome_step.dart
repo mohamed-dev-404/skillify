@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
+import 'package:skillify/core/utils/assets/app_lotties.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
@@ -13,34 +15,11 @@ class WelcomeStep extends StatelessWidget {
     return Column(
       children: [
         const Spacer(),
-        Container(
-          width: 128,
-          height: 128,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.backgroundNormal,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.successNormal.withValues(alpha: 0.25),
-                blurRadius: 60,
-                spreadRadius: 8,
-              ),
-            ],
-          ),
-          child: Container(
-            width: 64,
-            height: 64,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.successNormal,
-            ),
-            child: const Icon(
-              Icons.check,
-              size: 36,
-              color: AppColors.backgroundNormal,
-            ),
-          ),
+        Lottie.asset(
+          AppLotties.successJson,
+          width: 180,
+          height: 180,
+          repeat: false,
         ),
         const Gap(40),
         Text(

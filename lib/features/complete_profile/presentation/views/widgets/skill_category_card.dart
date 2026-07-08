@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/core/utils/assets/app_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/custom_svg_picture.dart';
-import 'package:skillify/features/complete_profile/presentation/views/widgets/complete_profile_items.dart';
 
-/// Selectable category card used in the "what can you teach / learn" steps.
+/// Selectable main skill card used in the "what can you teach / learn" steps.
 class SkillCategoryCard extends StatelessWidget {
   const SkillCategoryCard({
     super.key,
-    required this.item,
+    required this.title,
+    this.iconPath,
     required this.isSelected,
     required this.onTap,
   });
 
-  final SkillCategoryItem item;
+  final String title;
+
+  /// Falls back to a generic icon (the API iconKey is not ready yet).
+  final String? iconPath;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -37,7 +41,7 @@ class SkillCategoryCard extends StatelessWidget {
         child: Row(
           children: [
             CustomSvgPicture(
-              path: item.iconPath,
+              path: iconPath ?? AppIcons.briefcaseSvg,
               width: 24,
               height: 24,
               color: isSelected
@@ -46,21 +50,9 @@ class SkillCategoryCard extends StatelessWidget {
             ),
             const Gap(16),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: AppStyles.medium20.copyWith(color: AppColors.primary),
-                  ),
-                  const Gap(2),
-                  Text(
-                    item.subtitle,
-                    style: AppStyles.regular14.copyWith(
-                      color: AppColors.textSecondaryNormal,
-                    ),
-                  ),
-                ],
+              child: Text(
+                title,
+                style: AppStyles.medium20.copyWith(color: AppColors.primary),
               ),
             ),
             const Gap(8),

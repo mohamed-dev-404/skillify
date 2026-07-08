@@ -17,8 +17,10 @@ class EndPoints {
   //     'enrollments/my-courses/$courseId';
 
   //? --- Profile  --- ;
-  static const String getProfile = '/profile';
-  // static const String updateProfile = 'users/profile';
-  // static const String createUploadUrl = 'users/profile-picture/presigned-url';
-  // static const String saveProfilePic = 'users/profile-picture';
+  static const String getProfile = '/Users/me';
+  static const String completeProfile = '/Users/me/profile';
+
+  //? --- Lookups  --- ;
+  static const String getLanguages = '/Languages';
+  static const String getMainSkillsWithSubSkills = '/MainSkills/with-subskills';
 }

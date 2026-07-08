@@ -1,80 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/core/utils/assets/app_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/custom_svg_picture.dart';
-import 'package:skillify/features/complete_profile/presentation/views/widgets/complete_profile_items.dart';
+import 'package:skillify/features/complete_profile/data/models/main_skill_model.dart';
+import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/complete_profile/presentation/views/widgets/selectable_chip.dart';
 import 'package:skillify/features/complete_profile/presentation/views/widgets/step_title.dart';
 
 /// Step 7: multi-select the sub skills to learn under each chosen category.
-class NeededSubSkillsStep extends StatefulWidget {
+class NeededSubSkillsStep extends StatelessWidget {
   const NeededSubSkillsStep({super.key});
 
   @override
-  State<NeededSubSkillsStep> createState() => _NeededSubSkillsStepState();
-}
-
-class _NeededSubSkillsStepState extends State<NeededSubSkillsStep>
-    with AutomaticKeepAliveClientMixin {
-  // TODO: build the categories from the step 6 selections when wiring the cubit.
-  final _categories = [
-    CompleteProfileItems.skillCategories.first,
-    CompleteProfileItems.skillCategories[2],
-  ];
-
-  final Map<String, Set<String>> _selections = {};
-
-  // Keeps the selections alive while navigating between PageView steps.
-  @override
-  bool get wantKeepAlive => true;
-
-  void _toggle(String category, String skill) {
-    setState(() {
-      final selected = _selections.putIfAbsent(category, () => {});
-      if (!selected.remove(skill)) {
-        selected.add(skill);
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const StepTitle(
-            title: 'Refine your needed skills',
-            subtitle:
-                'Select the specific sub-skills you want to learn under each main category you chose.',
-          ),
-          const Gap(24),
-          for (final category in _categories) ...[
-            _CategorySkillsCard(
-              category: category,
-              selectedSkills: _selections[category.title] ?? const {},
-              onToggle: (skill) => _toggle(category.title, skill),
+    return BlocBuilder<CompleteProfileCubit, CompleteProfileState>(
+      builder: (context, state) {
+        final cubit = context.read<CompleteProfileCubit>();
+        final neededSkills = cubit.neededMainSkills;
+
+        if (neededSkills.isEmpty) {
+          return const Center(
+            child: StepTitle(
+              title: 'Select skills to learn first',
+              subtitle:
+                  'Go back one step and choose the skills you want to develop.',
             ),
-            const Gap(20),
-          ],
-        ],
-      ),
+          );
+        }
+
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const StepTitle(
+                title: 'Refine your needed skills',
+                subtitle:
+                    'Select the specific sub-skills you want to learn under each main category you chose.',
+              ),
+              const Gap(24),
+              for (final skill in neededSkills) ...[
+                _CategorySkillsCard(
+                  skill: skill,
+                  selectedSkillIds:
+                      cubit.neededSubSkillIds[skill.id] ?? const {},
+                  onToggle: (subSkillId) =>
+                      cubit.toggleNeededSubSkill(skill.id, subSkillId),
+                ),
+                const Gap(20),
+              ],
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
 class _CategorySkillsCard extends StatelessWidget {
   const _CategorySkillsCard({
-    required this.category,
-    required this.selectedSkills,
+    required this.skill,
+    required this.selectedSkillIds,
     required this.onToggle,
   });
 
-  final SkillCategoryItem category;
-  final Set<String> selectedSkills;
-  final void Function(String skill) onToggle;
+  final MainSkillModel skill;
+  final Set<int> selectedSkillIds;
+  final void Function(int subSkillId) onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -97,15 +91,15 @@ class _CategorySkillsCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CustomSvgPicture(
-                path: category.iconPath,
+              const CustomSvgPicture(
+                path: AppIcons.briefcaseSvg,
                 width: 22,
                 height: 22,
                 color: AppColors.primary,
               ),
               const Gap(12),
               Text(
-                category.title,
+                skill.name,
                 style: AppStyles.medium20.copyWith(color: AppColors.primary),
               ),
             ],
@@ -117,11 +111,11 @@ class _CategorySkillsCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 12,
             children: [
-              for (final skill in CompleteProfileItems.programmingSkills)
+              for (final subSkill in skill.subSkills)
                 SelectableChip(
-                  label: skill,
-                  isSelected: selectedSkills.contains(skill),
-                  onTap: () => onToggle(skill),
+                  label: subSkill.name,
+                  isSelected: selectedSkillIds.contains(subSkill.id),
+                  onTap: () => onToggle(subSkill.id),
                 ),
             ],
           ),

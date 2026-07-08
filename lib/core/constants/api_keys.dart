@@ -8,11 +8,14 @@ class ApiKeys {
   static const String errors = 'errors';
   static const String error = 'error';
   static const String message = 'message';
-  static const String id = '_id';
+  static const String id = 'id';
   static const String status = 'status';
   static const String name = 'name';
   static const String fullName = 'fullName';
   static const String description = 'description';
+  static const String slug = 'slug';
+  static const String iconKey = 'iconKey';
+  static const String subSkills = 'subSkills';
 
   //? User Model Keys
   static const String email = 'email';
@@ -59,6 +62,18 @@ class ApiKeys {
   static const String roles = 'roles';
   static const String student = 'student';
   static const String confirmPassword = 'confirmPassword';
+
+  //? Complete Profile form-data keys (PascalCase — as the API multipart expects)
+  static const String profilePictureForm = 'ProfilePicture';
+  static const String bioForm = 'Bio';
+  static const String jobTitleForm = 'JobTitle';
+  static const String offeredMainSkillForm = 'OfferedMainSkill';
+  static const String offeredSubSkillsForm = 'OfferedSubSkills';
+  static const String offeredDescriptionForm = 'OfferedDescription';
+  static const String neededSkillsForm = 'NeededSkills';
+  static const String languageIdsForm = 'LanguageIds';
+  static const String mainSkillIdForm = 'mainSkillId';
+  static const String subSkillIdsForm = 'subSkillIds';
 }
 
 //! --- API VALUES (Fixed values that the server expects inside the fields) ---

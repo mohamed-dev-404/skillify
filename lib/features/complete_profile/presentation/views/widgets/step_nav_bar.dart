@@ -13,6 +13,7 @@ class StepNavBar extends StatelessWidget {
     required this.onContinue,
     this.continueText = 'Continue',
     this.isLastStep = false,
+    this.isLoading = false,
   });
 
   /// When null the Back button is hidden (first step).
@@ -22,6 +23,10 @@ class StepNavBar extends StatelessWidget {
 
   /// Shows a check icon on the continue button instead of the forward arrow.
   final bool isLastStep;
+
+  /// When true both buttons are disabled and the continue button
+  /// shows a spinner (used while submitting the profile).
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +41,16 @@ class StepNavBar extends StatelessWidget {
             bgColor: AppColors.secondary,
             iconPath: AppIcons.arrowLeftSvg,
             iconLeading: true,
-            onPressed: onBack!,
+            onPressed: isLoading ? null : onBack,
           ),
         _NavButton(
           text: continueText,
           bgColor: AppColors.primary,
-          iconPath: isLastStep ? AppIcons.checkCircleSvg : AppIcons.arrowRightSvg,
-          onPressed: onContinue,
+          iconPath: isLastStep
+              ? AppIcons.checkCircleSvg
+              : AppIcons.arrowRightSvg,
+          isLoading: isLoading,
+          onPressed: isLoading ? null : onContinue,
         ),
       ],
     );
@@ -56,22 +64,33 @@ class _NavButton extends StatelessWidget {
     required this.iconPath,
     required this.onPressed,
     this.iconLeading = false,
+    this.isLoading = false,
   });
 
   final String text;
   final Color bgColor;
   final String iconPath;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool iconLeading;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
-    final icon = CustomSvgPicture(
-      path: iconPath,
-      width: 18,
-      height: 18,
-      color: AppColors.backgroundNormal,
-    );
+    final Widget icon = isLoading
+        ? const SizedBox(
+            width: 18,
+            height: 18,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: AppColors.backgroundNormal,
+            ),
+          )
+        : CustomSvgPicture(
+            path: iconPath,
+            width: 18,
+            height: 18,
+            color: AppColors.backgroundNormal,
+          );
     final label = Text(
       text,
       style: AppStyles.bold15.copyWith(color: AppColors.backgroundNormal),
@@ -80,6 +99,7 @@ class _NavButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: bgColor,
+        disabledBackgroundColor: bgColor,
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
