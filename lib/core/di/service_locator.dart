@@ -1,5 +1,9 @@
 import 'package:skillify/core/services/network/api_consumer.dart';
 import 'package:skillify/core/services/network/dio_consumer.dart';
+import 'package:skillify/features/auth/data/repo/auth_repo.dart';
+import 'package:skillify/features/auth/data/repo/auth_repo_impl.dart';
+import 'package:skillify/features/auth/presentation/view_model/login_cubit/login_cubit.dart';
+import 'package:skillify/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -16,20 +20,18 @@ void setupServiceLocator() {
 
   //! Auth Feature
 
-  //? Auth Repo
-  // getIt.registerLazySingleton<AuthRepo>(
-  //   () => AuthRepoImpl(getIt<ApiConsumer>()),
-  // );
+  //? Repo
+  getIt.registerLazySingleton<AuthRepo>(
+    () => AuthRepoImpl(getIt<ApiConsumer>()),
+  );
 
-  //? Login Cubit
-  // getIt.registerFactory<LoginCubit>(
-  //   () => LoginCubit(authRepo: getIt<AuthRepo>()),
-  // );
-
-  //? Register Cubit
-  // getIt.registerFactory<RegisterCubit>(
-  //   () => RegisterCubit(authRepo: getIt<AuthRepo>()),
-  // );
+  //? Cubits
+  getIt.registerFactory<LoginCubit>(
+    () => LoginCubit(authRepo: getIt<AuthRepo>()),
+  );
+  getIt.registerFactory<RegisterCubit>(
+    () => RegisterCubit(authRepo: getIt<AuthRepo>()),
+  );
 
   //! Profile Feature
 
