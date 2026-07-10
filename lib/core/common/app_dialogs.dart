@@ -1,8 +1,7 @@
-import 'package:skillify/core/utils/assets/app_lotties.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
+import 'package:skillify/core/widgets/animated_loading_widget.dart';
 
 /// AppDialogs
 ///
@@ -16,8 +15,7 @@ class AppDialogs {
       context: context,
       barrierDismissible: false,
       barrierColor: AppColors.backgroundDark.withValues(alpha: 0.7),
-      builder: (context) =>
-          Center(child: Lottie.asset(AppLotties.loadingJson, height: 80)),
+      builder: (context) => const AnimatedLoadingWidget(),
     );
   }
 
