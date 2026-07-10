@@ -16,8 +16,4 @@ abstract class AuthRepo {
     required String password,
     required String confirmPassword,
   });
-
-  /// Whether the logged-in user has completed their profile
-  /// (checked from `GET /Users/me`: offeredSkill is set).
-  Future<Either<String, bool>> isProfileCompleted();
 }

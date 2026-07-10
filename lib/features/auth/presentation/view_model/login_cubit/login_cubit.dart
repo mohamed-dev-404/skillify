@@ -16,15 +16,9 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(LoginLoading());
     final result = await authRepo.login(email: email, password: password);
-    await result.fold(
-      (errorMessage) async => emit(LoginFailure(errorMessage)),
-      (auth) async {
-        //* Decides where the user lands: main (completed) or complete profile.
-        // If the check itself fails we default to the complete profile flow.
-        final checkResult = await authRepo.isProfileCompleted();
-        final isCompleted = checkResult.getOrElse(() => false);
-        emit(LoginSuccess(auth, isProfileCompleted: isCompleted));
-      },
+    result.fold(
+      (errorMessage) => emit(LoginFailure(errorMessage)),
+      (auth) => emit(LoginSuccess(auth)),
     );
   }
 }

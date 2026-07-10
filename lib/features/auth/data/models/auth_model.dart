@@ -9,12 +9,17 @@ class AuthModel {
   final DateTime? accessTokenExpiresAt;
   final DateTime refreshTokenExpiresAt;
 
+  /// Whether the user has completed their profile
+  /// (drives post-login navigation: main or complete profile).
+  final bool profileCompleted;
+
   const AuthModel({
     required this.accessToken,
     required this.refreshToken,
     required this.accessTokenExpiresInSeconds,
     required this.accessTokenExpiresAt,
     required this.refreshTokenExpiresAt,
+    required this.profileCompleted,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +28,7 @@ class AuthModel {
       refreshToken: json[ApiKeys.refreshToken] as String,
       accessTokenExpiresInSeconds:
           (json[ApiKeys.accessTokenExpiresInSeconds] as num).toInt(),
+      profileCompleted: json[ApiKeys.profileCompleted] as bool? ?? false,
       accessTokenExpiresAt: json[ApiKeys.accessTokenExpiresAt] != null
           ? DateTime.parse(json[ApiKeys.accessTokenExpiresAt] as String)
           : null,
