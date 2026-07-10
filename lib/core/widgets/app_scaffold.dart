@@ -12,13 +12,13 @@ import 'package:skillify/core/utils/assets/app_images.dart';
 /// **Usage — exactly like a normal Scaffold:**
 ///
 /// ```dart
-/// // Basic usage:
+///? Basic usage:
 /// AppScaffold(
 ///   appBar: AppBar(title: Text('Home')),
 ///   body: Center(child: Text('Hello')),
 /// )
 ///
-/// // With bottom nav, FAB, drawer — everything works:
+///? With bottom nav, FAB, drawer — everything works:
 /// AppScaffold(
 ///   appBar: AppBar(title: Text('Dashboard')),
 ///   body: MyContent(),
@@ -27,7 +27,7 @@ import 'package:skillify/core/utils/assets/app_images.dart';
 ///   drawer: MyDrawer(),
 /// )
 ///
-/// // Disable the background image (rare cases):
+///? Disable the background image (rare cases):
 /// AppScaffold(
 ///   showBackground: false,
 ///   body: MyContent(),
@@ -90,28 +90,43 @@ class AppScaffold extends StatelessWidget {
       );
     }
 
-    // Wrap the body with the background image.
-    return Scaffold(
-      appBar: appBar,
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.bg),
-            fit: BoxFit.cover,
+    return Stack(
+      children: [
+        // 1. Ensure there is a base color behind the image if it has transparency.
+        Positioned.fill(
+          child: ColoredBox(
+            color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
           ),
         ),
-        child: SizedBox.expand(child: body),
-      ),
-      bottomNavigationBar: bottomNavigationBar,
-      floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: floatingActionButtonLocation,
-      drawer: drawer,
-      endDrawer: endDrawer,
-      bottomSheet: bottomSheet,
-      backgroundColor: backgroundColor,
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-      extendBody: extendBody,
-      extendBodyBehindAppBar: extendBodyBehindAppBar,
+
+        // 2. The background image managed by Image.asset for reliable loading.
+        if (showBackground)
+          Positioned.fill(
+            child: Image.asset(
+              AppImages.bg,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+        // 3. The actual Scaffold on top with transparent background.
+        Positioned.fill(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: appBar,
+            body: body,
+            bottomNavigationBar:
+                bottomNavigationBar, // Render natively to clip body above it
+            floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            drawer: drawer,
+            endDrawer: endDrawer,
+            bottomSheet: bottomSheet,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+            extendBody: extendBody, // Respect original extendBody behavior
+            extendBodyBehindAppBar: extendBodyBehindAppBar,
+          ),
+        ),
+      ],
     );
   }
 }
