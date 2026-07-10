@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skillify/core/routes/routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skillify/features/main/main_app_view.dart';
 
 class AppRouter {
   AppRouter._();
@@ -38,11 +39,11 @@ class AppRouter {
       //   ),
       // ),
 
-      //* Main view
-      // GoRoute(
-      //   path: Routes.main,
-      //   builder: (context, state) => const MainAppView(),
-      // ),
+      // * Main view
+      GoRoute(
+        path: Routes.main,
+        builder: (context, state) => const MainAppView(),
+      ),
     ],
   );
 }
