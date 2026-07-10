@@ -16,6 +16,7 @@ class ApiKeys {
   static const String slug = 'slug';
   static const String iconKey = 'iconKey';
   static const String subSkills = 'subSkills';
+  static const String offeredSkill = 'offeredSkill';
 
   //? User Model Keys
   static const String email = 'email';

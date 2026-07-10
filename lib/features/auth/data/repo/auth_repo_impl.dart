@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:skillify/core/constants/api_endpoints.dart';
+import 'package:skillify/core/constants/api_keys.dart';
 import 'package:skillify/core/errors/exceptions/app_exception.dart';
 import 'package:skillify/core/services/cache/secure_storage/secure_storage_service.dart';
 import 'package:skillify/core/services/network/api_consumer.dart';
@@ -53,6 +54,20 @@ class AuthRepoImpl implements AuthRepo {
       final auth = AuthModel.fromJson(data as Map<String, dynamic>);
       await _cacheTokens(auth);
       return Right(auth);
+    } on AppException catch (e) {
+      return Left(e.errorModel.errorMessage);
+    } catch (_) {
+      return const Left('Something went wrong. Please try again');
+    }
+  }
+
+  @override
+  Future<Either<String, bool>> isProfileCompleted() async {
+    try {
+      final data = await api.get(EndPoints.getProfile);
+      final isCompleted =
+          (data as Map<String, dynamic>)[ApiKeys.offeredSkill] != null;
+      return Right(isCompleted);
     } on AppException catch (e) {
       return Left(e.errorModel.errorMessage);
     } catch (_) {

@@ -9,7 +9,11 @@ final class LoginLoading extends LoginState {}
 
 final class LoginSuccess extends LoginState {
   final AuthModel auth;
-  LoginSuccess(this.auth);
+
+  /// Drives post-login navigation: main (true) or complete profile (false).
+  final bool isProfileCompleted;
+
+  LoginSuccess(this.auth, {required this.isProfileCompleted});
 }
 
 final class LoginFailure extends LoginState {

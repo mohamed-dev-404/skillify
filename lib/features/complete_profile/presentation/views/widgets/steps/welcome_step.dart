@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
+import 'package:skillify/core/routes/navigations_helper.dart';
+import 'package:skillify/core/routes/routes.dart';
 import 'package:skillify/core/utils/assets/app_lotties.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
@@ -39,9 +41,7 @@ class WelcomeStep extends StatelessWidget {
         MainButton(
           text: 'Explore Skillify',
           bgColor: AppColors.secondary,
-          onPressed: () {
-            // TODO: navigate to the main view when it is ready
-          },
+          onPressed: () => pushToBase(context, Routes.main),
         ),
       ],
     );

@@ -52,7 +52,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           AppSnackBar.success(context, 'Welcome back!');
-          pushToBase(context, Routes.completeProfile);
+          pushToBase(
+            context,
+            state.isProfileCompleted ? Routes.main : Routes.completeProfile,
+          );
         } else if (state is LoginFailure) {
           AppSnackBar.error(context, state.message);
         }
