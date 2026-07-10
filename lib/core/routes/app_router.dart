@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:skillify/core/routes/routes.dart';
 import 'package:skillify/features/auth/presentation/views/login/login_view.dart';
 import 'package:skillify/features/auth/presentation/views/register/register_view.dart';
+import 'package:skillify/features/main/main_app_view.dart';
 
 class AppRouter {
   AppRouter._();
@@ -35,11 +36,11 @@ class AppRouter {
         builder: (context, state) => const RegisterView(),
       ),
 
-      //* Main view
-      // GoRoute(
-      //   path: Routes.main,
-      //   builder: (context, state) => const MainAppView(),
-      // ),
+      // * Main view
+      GoRoute(
+        path: Routes.main,
+        builder: (context, state) => const MainAppView(),
+      ),
     ],
   );
 }
