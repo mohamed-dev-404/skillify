@@ -16,8 +16,17 @@ class DioLogger extends Interceptor {
     }
 
     final body = options.data;
-    // Log body if present
-    if (body != null && body.toString().isNotEmpty) {
+    // FormData (multipart) can't be json-encoded → log its fields instead
+    if (body is FormData) {
+      final fields = body.fields.map((f) => '${f.key}=${f.value}').join(', ');
+      final files = body.files
+          .map((f) => '${f.key}=${f.value.filename}')
+          .join(', ');
+      AppLogger.debug(
+        '📤 Body (form-data): {$fields}'
+        '${files.isEmpty ? '' : ' | files: {$files}'}',
+      );
+    } else if (body != null && body.toString().isNotEmpty) {
       AppLogger.debug('📤 Body: ${jsonEncode(body)}');
     }
 

@@ -4,6 +4,9 @@ import 'package:skillify/features/auth/data/repo/auth_repo.dart';
 import 'package:skillify/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:skillify/features/auth/presentation/view_model/login_cubit/login_cubit.dart';
 import 'package:skillify/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
+import 'package:skillify/features/complete_profile/data/repo/complete_profile_repo.dart';
+import 'package:skillify/features/complete_profile/data/repo/complete_profile_repo_impl.dart';
+import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -31,6 +34,20 @@ void setupServiceLocator() {
   );
   getIt.registerFactory<RegisterCubit>(
     () => RegisterCubit(authRepo: getIt<AuthRepo>()),
+  );
+
+  //! Complete Profile Feature
+
+  //? Repo
+  getIt.registerLazySingleton<CompleteProfileRepo>(
+    () => CompleteProfileRepoImpl(getIt<ApiConsumer>()),
+  );
+
+  //? Cubit
+  getIt.registerFactory<CompleteProfileCubit>(
+    () => CompleteProfileCubit(
+      completeProfileRepo: getIt<CompleteProfileRepo>(),
+    ),
   );
 
   //! Profile Feature

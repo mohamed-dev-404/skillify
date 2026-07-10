@@ -17,6 +17,7 @@ class AppTextFormField extends StatelessWidget {
     this.onChange,
     this.textInputAction,
     this.controller,
+    this.maxLines = 1,
   });
 
   /// Optional label displayed above the field.
@@ -32,6 +33,9 @@ class AppTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final TextEditingController? controller;
 
+  /// Set > 1 for a multiline text area (e.g. bio/description fields).
+  final int maxLines;
+
   @override
   Widget build(BuildContext context) {
     final field = TextFormField(
@@ -40,6 +44,7 @@ class AppTextFormField extends StatelessWidget {
       readOnly: readOnly,
       focusNode: focusNode,
       textInputAction: textInputAction,
+      maxLines: maxLines,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },

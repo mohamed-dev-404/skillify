@@ -45,6 +45,11 @@ class AuthInterceptor extends Interceptor {
       if (newAccessToken != null) {
         err.requestOptions.headers[ApiKeys.authorization] =
             '${ApiValues.bearer} $newAccessToken';
+        // A sent FormData can't be reused — clone it before retrying
+        if (err.requestOptions.data is FormData) {
+          err.requestOptions.data = (err.requestOptions.data as FormData)
+              .clone();
+        }
         final response = await dio.fetch(err.requestOptions);
         return handler.resolve(response);
       }

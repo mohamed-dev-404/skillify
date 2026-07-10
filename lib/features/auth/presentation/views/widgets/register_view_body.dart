@@ -57,8 +57,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
       listener: (context, state) {
         if (state is RegisterSuccess) {
           AppSnackBar.success(context, 'Account created successfully!');
-          // TODO: navigate to complete-profile / main once it is ready.
-          // e.g. context.go(Routes.main);
+          pushToBase(context, Routes.completeProfile);
         } else if (state is RegisterFailure) {
           AppSnackBar.error(context, state.message);
         }
