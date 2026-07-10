@@ -7,6 +7,7 @@ import 'package:skillify/features/auth/presentation/view_model/login_cubit/login
 import 'package:skillify/features/auth/presentation/view_model/register_cubit/register_cubit.dart';
 import 'package:skillify/features/auth/presentation/views/login/login_view.dart';
 import 'package:skillify/features/auth/presentation/views/register/register_view.dart';
+import 'package:skillify/features/main/main_app_view.dart';
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/complete_profile/presentation/views/complete_profile/complete_profile_view.dart';
 
@@ -56,11 +57,11 @@ class AppRouter {
         ),
       ),
 
-      //* Main view
-      // GoRoute(
-      //   path: Routes.main,
-      //   builder: (context, state) => const MainAppView(),
-      // ),
+      // * Main view
+      GoRoute(
+        path: Routes.main,
+        builder: (context, state) => const MainAppView(),
+      ),
     ],
   );
 }
