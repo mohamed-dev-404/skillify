@@ -18,14 +18,18 @@ class ExploreFilterDropdown extends StatelessWidget {
   final String label;
   final IconData icon;
   final String hint;
-  final String? value;
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
+  final int? value;
+  final List<ExploreFilterOption> items;
+  final ValueChanged<int?> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    final uniqueItems = items.toSet().toList();
-    final selectedValue = uniqueItems.contains(value) ? value : null;
+    final uniqueItems = {
+      for (final item in items) item.id: item,
+    }.values.toList();
+    final selectedValue = uniqueItems.any((item) => item.id == value)
+        ? value
+        : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +54,7 @@ class ExploreFilterDropdown extends StatelessWidget {
               const Gap(12),
               Expanded(
                 child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
+                  child: DropdownButton<int>(
                     value: selectedValue,
                     isExpanded: true,
                     menuMaxHeight: 280,
@@ -68,15 +72,15 @@ class ExploreFilterDropdown extends StatelessWidget {
                         .map(
                           (item) => Align(
                             alignment: Alignment.centerLeft,
-                            child: _DropdownText(item),
+                            child: _DropdownText(item.name),
                           ),
                         )
                         .toList(),
                     items: uniqueItems
                         .map(
                           (item) => DropdownMenuItem(
-                            value: item,
-                            child: _DropdownText(item),
+                            value: item.id,
+                            child: _DropdownText(item.name),
                           ),
                         )
                         .toList(),
@@ -90,6 +94,13 @@ class ExploreFilterDropdown extends StatelessWidget {
       ],
     );
   }
+}
+
+class ExploreFilterOption {
+  const ExploreFilterOption({required this.id, required this.name});
+
+  final int id;
+  final String name;
 }
 
 class _DropdownText extends StatelessWidget {

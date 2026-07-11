@@ -29,20 +29,24 @@ class ExploreFilters {
   }
 
   ExploreFilters copyWith({
-    int? page,
-    int? pageSize,
-    String? name,
-    int? skillId,
-    double? minRating,
-    int? langId,
+    Object? page = _unset,
+    Object? pageSize = _unset,
+    Object? name = _unset,
+    Object? skillId = _unset,
+    Object? minRating = _unset,
+    Object? langId = _unset,
   }) {
     return ExploreFilters(
-      page: page ?? this.page,
-      pageSize: pageSize ?? this.pageSize,
-      name: name ?? this.name,
-      skillId: skillId ?? this.skillId,
-      minRating: minRating ?? this.minRating,
-      langId: langId ?? this.langId,
+      page: identical(page, _unset) ? this.page : page as int?,
+      pageSize: identical(pageSize, _unset) ? this.pageSize : pageSize as int?,
+      name: identical(name, _unset) ? this.name : name as String?,
+      skillId: identical(skillId, _unset) ? this.skillId : skillId as int?,
+      minRating: identical(minRating, _unset)
+          ? this.minRating
+          : minRating as double?,
+      langId: identical(langId, _unset) ? this.langId : langId as int?,
     );
   }
 }
+
+const Object _unset = Object();

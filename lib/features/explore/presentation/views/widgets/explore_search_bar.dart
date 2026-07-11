@@ -11,6 +11,7 @@ class ExploreSearchBar extends StatelessWidget {
     required this.activeFilters,
     required this.onFilterTap,
     required this.onChanged,
+    required this.onSubmitted,
     required this.onClear,
   });
 
@@ -18,6 +19,7 @@ class ExploreSearchBar extends StatelessWidget {
   final int activeFilters;
   final VoidCallback onFilterTap;
   final ValueChanged<String> onChanged;
+  final ValueChanged<String> onSubmitted;
   final VoidCallback onClear;
 
   @override
@@ -30,6 +32,7 @@ class ExploreSearchBar extends StatelessWidget {
             child: TextField(
               controller: controller,
               onChanged: onChanged,
+              onSubmitted: onSubmitted,
               textInputAction: TextInputAction.search,
               style: AppStyles.regular14,
               decoration: InputDecoration(

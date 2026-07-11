@@ -6,11 +6,11 @@ import 'package:skillify/core/utils/styles/app_styles.dart';
 class UserCardSkills extends StatelessWidget {
   const UserCardSkills({
     super.key,
-    required this.offeredSkill,
+    this.offeredSkill,
     required this.neededSkills,
   });
 
-  final String offeredSkill;
+  final String? offeredSkill;
   final List<String> neededSkills;
 
   @override
@@ -28,7 +28,7 @@ class UserCardSkills extends StatelessWidget {
 class _OfferedSkillRow extends StatelessWidget {
   const _OfferedSkillRow({required this.skill});
 
-  final String skill;
+  final String? skill;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class _OfferedSkillRow extends StatelessWidget {
         const _SkillLabel(text: 'Teaches'),
         Expanded(
           child: Text(
-            skill,
+            skill?.trim().isNotEmpty == true ? skill! : 'Not specified yet',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: AppStyles.bold12.copyWith(

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
-import 'package:skillify/features/explore/data/models/explore_model.dart';
+import 'package:skillify/features/explore/data/models/explore_user_model.dart';
 
 class UserCardHeader extends StatelessWidget {
   const UserCardHeader({super.key, required this.data});
 
-  final ExploreUserCardData data;
+  final ExploreUserModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,9 @@ class UserCardHeader extends StatelessWidget {
               ),
               const Gap(4),
               Text(
-                data.jobTitle,
+                data.jobTitle?.trim().isNotEmpty == true
+                    ? data.jobTitle!
+                    : 'No job title added',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppStyles.medium12.copyWith(
@@ -37,8 +39,6 @@ class UserCardHeader extends StatelessWidget {
             ],
           ),
         ),
-        const Gap(8),
-        _RatingBadge(rating: data.rating),
       ],
     );
   }
@@ -47,7 +47,7 @@ class UserCardHeader extends StatelessWidget {
 class _UserAvatar extends StatelessWidget {
   const _UserAvatar({required this.data});
 
-  final ExploreUserCardData data;
+  final ExploreUserModel data;
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +64,10 @@ class _UserAvatar extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: ClipOval(
-        child: data.imageUrl == null
+        child: data.profilePictureUrl == null
             ? _AvatarFallback(initial: initial)
             : Image.network(
-                data.imageUrl!,
+                data.profilePictureUrl!,
                 fit: BoxFit.cover,
                 errorBuilder: (_, _, _) => _AvatarFallback(initial: initial),
               ),
@@ -90,38 +90,6 @@ class _AvatarFallback extends StatelessWidget {
           initial,
           style: AppStyles.bold20.copyWith(color: AppColors.primary),
         ),
-      ),
-    );
-  }
-}
-
-class _RatingBadge extends StatelessWidget {
-  const _RatingBadge({required this.rating});
-
-  final double? rating;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      decoration: BoxDecoration(
-        color: AppColors.warningLight,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.star_rounded,
-            size: 15,
-            color: AppColors.warningNormal,
-          ),
-          const Gap(3),
-          Text(
-            rating?.toStringAsFixed(1) ?? 'New',
-            style: AppStyles.bold12,
-          ),
-        ],
       ),
     );
   }

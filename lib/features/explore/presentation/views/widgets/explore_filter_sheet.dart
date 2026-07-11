@@ -1,38 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
+import 'package:skillify/core/widgets/animated_loading_widget.dart';
+import 'package:skillify/features/explore/data/models/explore_filters.dart';
+import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_filter_dropdown.dart';
 
 class ExploreFilterSheet extends StatefulWidget {
-  const ExploreFilterSheet({super.key, this.initialFilterCount = 0});
+  const ExploreFilterSheet({
+    super.key,
+    required this.initialFilters,
+  });
 
-  final int initialFilterCount;
+  final ExploreFilters initialFilters;
 
   @override
   State<ExploreFilterSheet> createState() => _ExploreFilterSheetState();
 }
 
 class _ExploreFilterSheetState extends State<ExploreFilterSheet> {
-  String? _skill;
-  String? _language;
-  double _rating = 0;
+  int? _skillId;
+  int? _languageId;
+  double? _rating;
 
-  int get _filterCount =>
-      [_skill != null, _language != null, _rating > 0].where((e) => e).length;
+  int get _filterCount => [
+    _skillId != null,
+    _languageId != null,
+    _rating != null,
+  ].where((isActive) => isActive).length;
+
+  @override
+  void initState() {
+    super.initState();
+    _skillId = widget.initialFilters.skillId;
+    _languageId = widget.initialFilters.langId;
+    _rating = widget.initialFilters.minRating;
+  }
 
   void _clear() {
     setState(() {
-      _skill = null;
-      _language = null;
-      _rating = 0;
+      _skillId = null;
+      _languageId = null;
+      _rating = null;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<ExploreCubit>();
+    final lookupsState = cubit.state.lookupsState;
+
     return Container(
       padding: EdgeInsets.fromLTRB(
         20,
@@ -84,40 +105,47 @@ class _ExploreFilterSheetState extends State<ExploreFilterSheet> {
               ),
             ),
             const Gap(22),
-            ExploreFilterDropdown(
-              label: 'Skill you want to learn',
-              icon: LineIcons.graduationCap,
-              hint: 'Select a skill',
-              value: _skill,
-              items: const [
-                'Programming',
-                'Flutter',
-                'DevOps',
-                'UI/UX Design',
-                'Programmings',
-                'Flutters',
-                'DevOpss',
-                'UI/UX Dessign',
-                'Programmisng',
-                'Fluttaser',
-                'DevOpdsas',
-                'UI/UX Deasdsign',
-                'Programminqwwqg',
-                'Flutterads',
-                'DevOpssda',
-                'UI/UX Dessadign',
-              ],
-              onChanged: (value) => setState(() => _skill = value),
-            ),
-            const Gap(16),
-            ExploreFilterDropdown(
-              label: 'Language',
-              icon: LineIcons.language,
-              hint: 'Select a language',
-              value: _language,
-              items: const ['Arabic', 'English', 'French'],
-              onChanged: (value) => setState(() => _language = value),
-            ),
+            if (lookupsState.status == ExploreLookupsStatus.loading ||
+                lookupsState.status == ExploreLookupsStatus.initial)
+              const AnimatedLoadingWidget(height: 70)
+            else if (lookupsState.status == ExploreLookupsStatus.failure)
+              _LookupsFailure(
+                message: lookupsState.errorMessage ?? 'Could not load filters',
+                onRetry: cubit.loadLookups,
+              )
+            else ...[
+              ExploreFilterDropdown(
+                label: 'Skill you want to learn',
+                icon: LineIcons.graduationCap,
+                hint: 'Select a skill',
+                value: _skillId,
+                items: lookupsState.skills
+                    .map(
+                      (skill) => ExploreFilterOption(
+                        id: skill.id,
+                        name: skill.name,
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) => setState(() => _skillId = value),
+              ),
+              const Gap(16),
+              ExploreFilterDropdown(
+                label: 'Language',
+                icon: LineIcons.language,
+                hint: 'Select a language',
+                value: _languageId,
+                items: lookupsState.languages
+                    .map(
+                      (language) => ExploreFilterOption(
+                        id: language.id,
+                        name: language.name,
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) => setState(() => _languageId = value),
+              ),
+            ],
             const Gap(20),
             Text('Minimum rating', style: AppStyles.bold14),
             const Gap(12),
@@ -127,10 +155,11 @@ class _ExploreFilterSheetState extends State<ExploreFilterSheet> {
                   .map(
                     (rating) => ChoiceChip(
                       showCheckmark: false,
-                      selected: _rating == rating,
-                      onSelected: (_) => setState(() => _rating = rating),
+                      selected: (_rating ?? 0) == rating,
+                      onSelected: (_) =>
+                          setState(() => _rating = rating == 0 ? null : rating),
                       side: BorderSide(
-                        color: _rating == rating
+                        color: (_rating ?? 0) == rating
                             ? AppColors.primary
                             : AppColors.borderNormal,
                       ),
@@ -150,7 +179,7 @@ class _ExploreFilterSheetState extends State<ExploreFilterSheet> {
                           Text(
                             rating == 0 ? 'Any' : '$rating+',
                             style: AppStyles.medium12.copyWith(
-                              color: _rating == rating
+                              color: (_rating ?? 0) == rating
                                   ? AppColors.primary
                                   : AppColors.textSecondaryNormal,
                             ),
@@ -166,10 +195,48 @@ class _ExploreFilterSheetState extends State<ExploreFilterSheet> {
               text: _filterCount == 0
                   ? 'Show all results'
                   : 'Show results  ($_filterCount filters)',
-              onPressed: () => Navigator.pop(context, _filterCount),
+              onPressed: () => Navigator.pop(
+                context,
+                widget.initialFilters.copyWith(
+                  page: null,
+                  skillId: _skillId,
+                  langId: _languageId,
+                  minRating: _rating,
+                ),
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LookupsFailure extends StatelessWidget {
+  const _LookupsFailure({required this.message, required this.onRetry});
+
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.errorLight,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: AppStyles.regular12.copyWith(color: AppColors.errorDark),
+          ),
+          const Gap(8),
+          TextButton(onPressed: onRetry, child: const Text('Try again')),
+        ],
       ),
     );
   }

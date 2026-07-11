@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
-import 'package:skillify/features/explore/data/models/explore_model.dart';
+import 'package:skillify/features/explore/data/models/explore_user_model.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_user_card/user_card_header.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_user_card/user_card_profile_button.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_user_card/user_card_skills.dart';
@@ -9,7 +9,7 @@ import 'package:skillify/features/explore/presentation/views/widgets/explore_use
 class ExploreUserCard extends StatelessWidget {
   const ExploreUserCard({super.key, required this.data, this.onTap});
 
-  final ExploreUserCardData data;
+  final ExploreUserModel data;
   final VoidCallback? onTap;
 
   @override
@@ -44,8 +44,10 @@ class ExploreUserCard extends StatelessWidget {
                 const Divider(height: 1),
                 const Gap(11),
                 UserCardSkills(
-                  offeredSkill: data.offeredSkill,
-                  neededSkills: data.neededSkills,
+                  offeredSkill: data.offeredMainSkill?.name,
+                  neededSkills: data.neededMainSkills
+                      .map((skill) => skill.name)
+                      .toList(),
                 ),
                 const Gap(12),
                 UserCardProfileButton(onPressed: onTap),
