@@ -35,6 +35,7 @@ class ExploreUsersState {
     this.isLoadingMore = false,
     this.hasMore = false,
     this.errorMessage,
+    this.loadMoreError,
   });
 
   final ExploreUsersStatus status;
@@ -44,6 +45,7 @@ class ExploreUsersState {
   final bool isLoadingMore;
   final bool hasMore;
   final String? errorMessage;
+  final String? loadMoreError;
 
   ExploreUsersState copyWith({
     ExploreUsersStatus? status,
@@ -53,6 +55,7 @@ class ExploreUsersState {
     bool? isLoadingMore,
     bool? hasMore,
     Object? errorMessage = _unset,
+    Object? loadMoreError = _unset,
   }) {
     return ExploreUsersState(
       status: status ?? this.status,
@@ -64,6 +67,9 @@ class ExploreUsersState {
       errorMessage: identical(errorMessage, _unset)
           ? this.errorMessage
           : errorMessage as String?,
+      loadMoreError: identical(loadMoreError, _unset)
+          ? this.loadMoreError
+          : loadMoreError as String?,
     );
   }
 }

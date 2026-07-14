@@ -18,26 +18,35 @@ class ExploreCubit extends Cubit<ExploreState> {
 
   final ExploreRepo exploreRepo;
   final CompleteProfileRepo completeProfileRepo;
+  static const int _pageSize = 10;
+  int _requestVersion = 0;
 
   Future<void> initialize() async {
     await Future.wait([getUsers(), loadLookups()]);
   }
 
   Future<void> getUsers({ExploreFilters? filters}) async {
-    final activeFilters = filters ?? state.usersState.filters;
+    final requestVersion = ++_requestVersion;
+    final requestedFilters = filters ?? state.usersState.filters;
+    final activeFilters = requestedFilters.copyWith(
+      page: 1,
+      pageSize: requestedFilters.pageSize ?? _pageSize,
+    );
 
     emit(
       state.copyWith(
         usersState: state.usersState.copyWith(
           status: ExploreUsersStatus.loading,
           filters: activeFilters,
+          isLoadingMore: false,
           errorMessage: null,
+          loadMoreError: null,
         ),
       ),
     );
 
     final result = await exploreRepo.getUsers(activeFilters);
-    if (isClosed) return;
+    if (isClosed || requestVersion != _requestVersion) return;
 
     result.fold(
       (errorMessage) => emit(
@@ -59,7 +68,67 @@ class ExploreCubit extends Cubit<ExploreState> {
               users: users,
               totalCount: response.totalCount,
               hasMore: users.length < response.totalCount,
+              isLoadingMore: false,
               errorMessage: null,
+              loadMoreError: null,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> loadMoreUsers({bool retry = false}) async {
+    final currentUsersState = state.usersState;
+    if (currentUsersState.isLoadingMore ||
+        !currentUsersState.hasMore ||
+        currentUsersState.users.isEmpty ||
+        (currentUsersState.loadMoreError != null && !retry)) {
+      return;
+    }
+
+    final requestVersion = _requestVersion;
+    final nextPage = (currentUsersState.filters.page ?? 1) + 1;
+    final nextFilters = currentUsersState.filters.copyWith(page: nextPage);
+
+    emit(
+      state.copyWith(
+        usersState: state.usersState.copyWith(
+          isLoadingMore: true,
+          loadMoreError: null,
+        ),
+      ),
+    );
+
+    final result = await exploreRepo.getUsers(nextFilters);
+    if (isClosed || requestVersion != _requestVersion) return;
+
+    result.fold(
+      (errorMessage) => emit(
+        state.copyWith(
+          usersState: state.usersState.copyWith(
+            isLoadingMore: false,
+            loadMoreError: errorMessage,
+          ),
+        ),
+      ),
+      (response) {
+        final usersById = {
+          for (final user in state.usersState.users) user.userId: user,
+          for (final user in response.items) user.userId: user,
+        };
+        final users = usersById.values.toList();
+
+        emit(
+          state.copyWith(
+            usersState: state.usersState.copyWith(
+              status: ExploreUsersStatus.success,
+              users: users,
+              filters: nextFilters,
+              totalCount: response.totalCount,
+              isLoadingMore: false,
+              hasMore: users.length < response.totalCount,
+              loadMoreError: null,
             ),
           ),
         );

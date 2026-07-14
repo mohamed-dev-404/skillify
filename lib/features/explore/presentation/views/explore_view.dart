@@ -6,6 +6,7 @@ import 'package:skillify/features/explore/data/models/explore_filters.dart';
 import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_filter_sheet.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_header.dart';
+import 'package:skillify/features/explore/presentation/views/widgets/explore_pagination_footer.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_results_header.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_results_sliver.dart';
 import 'package:skillify/features/explore/presentation/views/widgets/explore_search_bar.dart';
@@ -31,11 +32,31 @@ class _ExploreViewBody extends StatefulWidget {
 
 class _ExploreViewBodyState extends State<_ExploreViewBody> {
   final TextEditingController _searchController = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (!_scrollController.hasClients) return;
+
+    const loadMoreThreshold = 300.0;
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - loadMoreThreshold) {
+      context.read<ExploreCubit>().loadMoreUsers();
+    }
   }
 
   Future<void> _openFilters() async {
@@ -86,11 +107,15 @@ class _ExploreViewBodyState extends State<_ExploreViewBody> {
     return BlocBuilder<ExploreCubit, ExploreState>(
       builder: (context, state) {
         final usersState = state.usersState;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) _onScroll();
+        });
 
         return Column(
           children: [
             Expanded(
               child: CustomScrollView(
+                controller: _scrollController,
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 slivers: [
@@ -126,6 +151,13 @@ class _ExploreViewBodyState extends State<_ExploreViewBody> {
                   ExploreResultsSliver(
                     usersState: usersState,
                     onRetry: context.read<ExploreCubit>().getUsers,
+                  ),
+                  ExplorePaginationFooter(
+                    isLoading: usersState.isLoadingMore,
+                    errorMessage: usersState.loadMoreError,
+                    onRetry: () => context.read<ExploreCubit>().loadMoreUsers(
+                      retry: true,
+                    ),
                   ),
                 ],
               ),
