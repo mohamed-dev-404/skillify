@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/core/common/debouncer.dart';
 import 'package:skillify/core/di/service_locator.dart';
 import 'package:skillify/features/explore/data/models/explore_filters.dart';
 import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
@@ -33,6 +34,7 @@ class _ExploreViewBody extends StatefulWidget {
 class _ExploreViewBodyState extends State<_ExploreViewBody> {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  final Debouncer _searchDebouncer = Debouncer(milliseconds: 500);
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _ExploreViewBodyState extends State<_ExploreViewBody> {
 
   @override
   void dispose() {
+    _searchDebouncer.dispose();
     _searchController.dispose();
     _scrollController
       ..removeListener(_onScroll)
@@ -80,15 +83,32 @@ class _ExploreViewBodyState extends State<_ExploreViewBody> {
 
   void _submitSearch(String value) {
     final cubit = context.read<ExploreCubit>();
+    final searchName = value.trim();
+    final currentName = cubit.state.usersState.filters.name?.trim() ?? '';
+    if (searchName == currentName) return;
+
     cubit.applyFilters(
       cubit.state.usersState.filters.copyWith(
         page: null,
-        name: value.trim().isEmpty ? null : value,
+        name: searchName.isEmpty ? null : searchName,
       ),
     );
   }
 
+  void _onSearchChanged(String value) {
+    setState(() {});
+    _searchDebouncer.run(() {
+      if (mounted) _submitSearch(value);
+    });
+  }
+
+  void _onSearchSubmitted(String value) {
+    _searchDebouncer.dispose();
+    _submitSearch(value);
+  }
+
   void _clearSearch() {
+    _searchDebouncer.dispose();
     _searchController.clear();
     setState(() {});
     _submitSearch('');
@@ -131,8 +151,8 @@ class _ExploreViewBodyState extends State<_ExploreViewBody> {
                             usersState.filters,
                           ),
                           onFilterTap: _openFilters,
-                          onChanged: (_) => setState(() {}),
-                          onSubmitted: _submitSearch,
+                          onChanged: _onSearchChanged,
+                          onSubmitted: _onSearchSubmitted,
                           onClear: _clearSearch,
                         ),
                         const Gap(24),
