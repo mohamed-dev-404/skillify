@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
+import 'package:skillify/core/widgets/empty_state_widget.dart';
 import 'package:skillify/features/profile/data/models/review_model.dart';
 
 class ProfileReviewsSection extends StatelessWidget {
-  final List<ReviewModel> reviews;
+  final List<ReviewModel>? reviews;
   final num? overallRatingScore;
 
   const ProfileReviewsSection({
     super.key,
-    required this.reviews,
+    this.reviews,
     this.overallRatingScore,
   });
 
   @override
   Widget build(BuildContext context) {
+    final hasReviews = reviews != null && reviews!.isNotEmpty;
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -55,20 +58,30 @@ class ProfileReviewsSection extends StatelessWidget {
             ],
           ),
           const Gap(16),
-          ...reviews.asMap().entries.map((entry) {
-            final index = entry.key;
-            final review = entry.value;
-            return Column(
-              children: [
-                _ReviewTile(review: review),
-                if (index < reviews.length - 1) ...[
-                  const Gap(12),
-                  const Divider(color: AppColors.borderNormal, height: 1),
-                  const Gap(12),
+          if (!hasReviews)
+            const Center(
+              child: EmptyStateWidget(
+                title: 'No Reviews Yet',
+                subtitle: 'Reviews from your students will appear here.',
+                lottieHeight: 100,
+                padding: EdgeInsets.symmetric(vertical: 8),
+              ),
+            )
+          else
+            ...reviews!.asMap().entries.map((entry) {
+              final index = entry.key;
+              final review = entry.value;
+              return Column(
+                children: [
+                  _ReviewTile(review: review),
+                  if (index < reviews!.length - 1) ...[
+                    const Gap(12),
+                    const Divider(color: AppColors.borderNormal, height: 1),
+                    const Gap(12),
+                  ],
                 ],
-              ],
-            );
-          }),
+              );
+            }),
         ],
       ),
     );

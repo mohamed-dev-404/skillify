@@ -74,12 +74,6 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
 
         if (state is ProfileSuccess) {
           final profile = state.profile;
-          final hasBadges =
-              profile.badges != null && profile.badges!.isNotEmpty;
-          final hasLanguages =
-              profile.languages != null && profile.languages!.isNotEmpty;
-          final hasReviews = profile.receivedReviews != null &&
-              profile.receivedReviews!.isNotEmpty;
 
           return RefreshIndicator(
             onRefresh: () => context.read<ProfileCubit>().getProfile(),
@@ -96,31 +90,32 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                   const Gap(20),
 
                   // ─── Languages ───
-                  if (hasLanguages) ...[
-                    ProfileLanguagesSection(languages: profile.languages!),
-                    const Gap(20),
-                  ],
+                  ProfileLanguagesSection(languages: profile.languages),
+                  const Gap(20),
 
                   // ─── Offered Skill ───
-                  if (profile.offeredSkill != null) ...[
-                    ProfileSkillCard(
-                      title: 'Skills I Offer',
-                      mainSkillName:
-                          profile.offeredSkill!.mainSkill?.name ?? 'Unknown',
-                      subSkills: profile.offeredSkill!.subSkills
-                              ?.map((e) => e.name ?? '')
-                              .toList() ??
-                          [],
-                      description: profile.offeredSkill!.description ?? '',
-                      sectionIcon: Icons.school_outlined,
-                      themeColor: AppColors.secondary,
-                    ),
-                    const Gap(20),
-                  ],
+                  ProfileSkillCard(
+                    title: 'Skills I Offer',
+                    mainSkillName: profile.offeredSkill?.mainSkill?.name,
+                    subSkills: profile.offeredSkill?.subSkills
+                        ?.map((e) => e.name ?? '')
+                        .toList(),
+                    description: profile.offeredSkill?.description,
+                    sectionIcon: Icons.school_outlined,
+                    themeColor: AppColors.secondary,
+                  ),
+                  const Gap(20),
 
                   // ─── Needed Skills ───
-                  if (profile.neededSkills != null &&
-                      profile.neededSkills!.isNotEmpty) ...[
+                  if (profile.neededSkills == null ||
+                      profile.neededSkills!.isEmpty) ...[
+                    const ProfileSkillCard(
+                      title: 'Skills I Want to Learn',
+                      sectionIcon: Icons.psychology_outlined,
+                      themeColor: AppColors.accent,
+                    ),
+                    const Gap(20),
+                  ] else ...[
                     ...profile.neededSkills!.map((neededSkill) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 20.0),
@@ -141,19 +136,15 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                   ],
 
                   // ─── Badges ───
-                  if (hasBadges) ...[
-                    ProfileBadgesSection(badges: profile.badges!),
-                    const Gap(20),
-                  ],
+                  ProfileBadgesSection(badges: profile.badges),
+                  const Gap(20),
 
                   // ─── Reviews ───
-                  if (hasReviews) ...[
-                    ProfileReviewsSection(
-                      reviews: profile.receivedReviews!,
-                      overallRatingScore: profile.overallRatingScore,
-                    ),
-                    const Gap(20),
-                  ],
+                  ProfileReviewsSection(
+                    reviews: profile.receivedReviews,
+                    overallRatingScore: profile.overallRatingScore,
+                  ),
+                  const Gap(20),
 
                   // Bottom safe area
                   const Gap(60),
