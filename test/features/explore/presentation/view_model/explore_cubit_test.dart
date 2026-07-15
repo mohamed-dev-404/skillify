@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:skillify/features/complete_profile/data/models/complete_profile_request_model.dart';
@@ -111,5 +113,10 @@ class _FakeCompleteProfileRepo implements CompleteProfileRepo {
   Future<Either<String, List<MainSkillModel>>>
   getMainSkillsWithSubSkills() async {
     return const Right([]);
+  }
+
+  @override
+  Future<Either<String, Unit>> updateProfilePicture(File photo) async {
+    return const Right(unit);
   }
 }
