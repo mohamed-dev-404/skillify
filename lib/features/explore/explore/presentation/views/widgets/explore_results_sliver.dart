@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/core/routes/navigations_helper.dart';
+import 'package:skillify/core/routes/routes.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/core/widgets/empty_state_widget.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_user_card/explore_user_card.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_user_card/explore_user_card.dart';
 
 class ExploreResultsSliver extends StatelessWidget {
   const ExploreResultsSliver({
@@ -24,9 +26,14 @@ class ExploreResultsSliver extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
         sliver: SliverList.separated(
           itemCount: usersState.users.length,
-          itemBuilder: (_, index) => ExploreUserCard(
-            data: usersState.users[index],
-          ),
+          itemBuilder: (context, index) {
+            final user = usersState.users[index];
+
+            return ExploreUserCard(
+              data: user,
+              onTap: () => push(context, Routes.publicProfile(user.userId)),
+            );
+          },
           separatorBuilder: (_, _) => const Gap(14),
         ),
       );

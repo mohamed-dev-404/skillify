@@ -7,8 +7,8 @@ import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/features/explore/data/models/explore_filters.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_filter_dropdown.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_filter_dropdown.dart';
 
 class ExploreFilterSheet extends StatefulWidget {
   const ExploreFilterSheet({

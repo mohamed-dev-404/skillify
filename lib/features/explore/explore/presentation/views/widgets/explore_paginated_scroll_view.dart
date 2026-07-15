@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 
 class ExplorePaginatedScrollView extends StatefulWidget {
   const ExplorePaginatedScrollView({

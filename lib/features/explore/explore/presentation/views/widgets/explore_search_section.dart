@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skillify/core/common/debouncer.dart';
 import 'package:skillify/features/explore/data/models/explore_filters.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_filter_sheet.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_presentation_extensions.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_search_bar.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_filter_sheet.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_presentation_extensions.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_search_bar.dart';
 
 class ExploreSearchSection extends StatefulWidget {
   const ExploreSearchSection({

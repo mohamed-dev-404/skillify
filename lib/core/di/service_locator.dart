@@ -9,10 +9,11 @@ import 'package:skillify/features/complete_profile/data/repo/complete_profile_re
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/explore/data/repo/explore_repo.dart';
 import 'package:skillify/features/explore/data/repo/explore_repo_impl.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/public_profile/presentation/view_model/public_profile_cubit/public_profile_cubit.dart';
 
 /// This file is responsible for registering all the services
 /// that will be used in the app using GetIt package for [dependency_injection].
@@ -66,6 +67,10 @@ void setupServiceLocator() {
       exploreRepo: getIt<ExploreRepo>(),
       completeProfileRepo: getIt<CompleteProfileRepo>(),
     ),
+  );
+
+  getIt.registerFactory<PublicProfileCubit>(
+    () => PublicProfileCubit(exploreRepo: getIt<ExploreRepo>()),
   );
 
   //! Profile Feature

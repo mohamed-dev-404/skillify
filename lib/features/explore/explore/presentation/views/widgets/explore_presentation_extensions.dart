@@ -1,5 +1,5 @@
 import 'package:skillify/features/explore/data/models/explore_filters.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 
 extension ExploreFiltersPresentation on ExploreFilters {
   int get activeCount {

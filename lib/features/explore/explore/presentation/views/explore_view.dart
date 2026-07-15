@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_header.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_paginated_scroll_view.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_pagination_footer.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_presentation_extensions.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_results_header.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_results_sliver.dart';
-import 'package:skillify/features/explore/presentation/views/widgets/explore_search_section.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_header.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_paginated_scroll_view.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_pagination_footer.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_presentation_extensions.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_results_header.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_results_sliver.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_search_section.dart';
 
 class ExploreView extends StatelessWidget {
   const ExploreView({super.key});
