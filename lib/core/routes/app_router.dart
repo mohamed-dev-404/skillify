@@ -10,6 +10,7 @@ import 'package:skillify/features/auth/presentation/views/register/register_view
 import 'package:skillify/features/main/main_app_view.dart';
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/complete_profile/presentation/views/complete_profile/complete_profile_view.dart';
+import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 
 class AppRouter {
   AppRouter._();
@@ -60,7 +61,10 @@ class AppRouter {
       // * Main view
       GoRoute(
         path: Routes.main,
-        builder: (context, state) => const MainAppView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ExploreCubit>()..initialize(),
+          child: const MainAppView(),
+        ),
       ),
     ],
   );

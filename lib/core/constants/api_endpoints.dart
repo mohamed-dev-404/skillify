@@ -20,6 +20,9 @@ class EndPoints {
   static const String getProfile = '/Users/me';
   static const String completeProfile = '/Users/me/profile';
 
+  //? --- Explore  --- ;
+  static const String getUsers = '/Users';
+
   //? --- Lookups  --- ;
   static const String getLanguages = '/Languages';
   static const String getMainSkillsWithSubSkills = '/MainSkills/with-subskills';
