@@ -22,6 +22,7 @@ class EndPoints {
 
   //? --- Explore  --- ;
   static const String getUsers = '/Users';
+  static String getUserById(int id) => '/Users/$id';
 
   //? --- Lookups  --- ;
   static const String getLanguages = '/Languages';
