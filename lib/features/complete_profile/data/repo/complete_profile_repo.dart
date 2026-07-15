@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:skillify/features/complete_profile/data/models/complete_profile_request_model.dart';
 import 'package:skillify/features/complete_profile/data/models/language_model.dart';
@@ -13,4 +15,6 @@ abstract class CompleteProfileRepo {
   Future<Either<String, Unit>> completeProfile(
     CompleteProfileRequestModel request,
   );
+
+  Future<Either<String, Unit>> updateProfilePicture(File photo);
 }
