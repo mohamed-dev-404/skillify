@@ -12,7 +12,7 @@ import 'package:skillify/features/explore/data/repo/explore_repo_impl.dart';
 import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo_impl.dart';
-import 'package:skillify/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';

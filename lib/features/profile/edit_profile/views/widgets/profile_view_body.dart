@@ -5,12 +5,12 @@ import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
-import 'package:skillify/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
-import 'package:skillify/features/profile/presentation/views/widgets/profile_badges_section.dart';
-import 'package:skillify/features/profile/presentation/views/widgets/profile_header_card.dart';
-import 'package:skillify/features/profile/presentation/views/widgets/profile_languages_section.dart';
-import 'package:skillify/features/profile/presentation/views/widgets/profile_reviews_section.dart';
-import 'package:skillify/features/profile/presentation/views/widgets/profile_skill_card.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
+import 'package:skillify/features/profile/my_profile/views/widgets/profile_badges_section.dart';
+import 'package:skillify/features/profile/my_profile/views/widgets/profile_header_card.dart';
+import 'package:skillify/features/profile/my_profile/views/widgets/profile_languages_section.dart';
+import 'package:skillify/features/profile/my_profile/views/widgets/profile_reviews_section.dart';
+import 'package:skillify/features/profile/my_profile/views/widgets/profile_skill_card.dart';
 
 class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({super.key});
