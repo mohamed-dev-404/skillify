@@ -119,7 +119,6 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     emit(CompleteProfileSubmitLoading());
 
     final request = CompleteProfileRequestModel(
-      profilePicture: photo,
       bio: bioController.text.trim(),
       jobTitle: jobTitleController.text.trim(),
       offeredMainSkillId: offeredMainSkillId!,
@@ -135,10 +134,24 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
       languageIds: selectedLanguageIds.toList(),
     );
 
+    //* 1) Send the profile data, 2) then upload the photo (own endpoint).
+    // If the photo fails, resubmitting is safe — the profile PUT is an update.
     final result = await completeProfileRepo.completeProfile(request);
-    result.fold(
-      (errorMessage) => emit(CompleteProfileSubmitFailure(errorMessage)),
-      (_) => emit(CompleteProfileSubmitSuccess()),
+    await result.fold(
+      (errorMessage) async => emit(CompleteProfileSubmitFailure(errorMessage)),
+      (_) async {
+        if (photo == null) {
+          emit(CompleteProfileSubmitSuccess());
+          return;
+        }
+        final photoResult = await completeProfileRepo.updateProfilePicture(
+          photo!,
+        );
+        photoResult.fold(
+          (errorMessage) => emit(CompleteProfileSubmitFailure(errorMessage)),
+          (_) => emit(CompleteProfileSubmitSuccess()),
+        );
+      },
     );
   }
 
