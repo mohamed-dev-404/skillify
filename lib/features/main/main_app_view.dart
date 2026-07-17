@@ -6,7 +6,9 @@ import 'package:skillify/core/di/service_locator.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
 import 'package:skillify/features/explore/explore/presentation/views/explore_view.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 import 'package:skillify/features/profile/my_profile/views/profile_view.dart';
 import 'package:skillify/features/sessions/presentation/views/sessions_view.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
@@ -28,13 +30,19 @@ class _MainAppViewState extends State<MainAppView> {
   void initState() {
     super.initState();
     screens = [
-      const ExploreView(),
+      BlocProvider(
+        create: (context) => getIt<ExploreCubit>()..initialize(),
+        child: const ExploreView(),
+      ),
       const SessionsView(),
       BlocProvider(
         create: (context) => getIt<WalletCubit>()..fetchWalletData(),
         child: const WalletView(),
       ),
-      const ProfileView(),
+      BlocProvider(
+        create: (context) => getIt<ProfileCubit>(),
+        child: const ProfileView(),
+      ),
     ];
   }
 
