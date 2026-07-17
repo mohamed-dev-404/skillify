@@ -11,6 +11,9 @@ import 'package:skillify/features/main/main_app_view.dart';
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/complete_profile/presentation/views/complete_profile/complete_profile_view.dart';
 import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/profile/data/models/profile_model.dart';
+import 'package:skillify/features/profile/my_profile/views/profile_view.dart';
+import 'package:skillify/features/profile/edit_profile/views/edit_profile_view.dart';
 
 class AppRouter {
   AppRouter._();
@@ -65,6 +68,21 @@ class AppRouter {
           create: (context) => getIt<ExploreCubit>()..initialize(),
           child: const MainAppView(),
         ),
+      ),
+
+      // * Profile view
+      GoRoute(
+        path: Routes.profile,
+        builder: (context, state) => const ProfileView(),
+      ),
+
+      // * Edit Profile view
+      GoRoute(
+        path: Routes.editProfile,
+        builder: (context, state) {
+          final profile = state.extra as ProfileModel;
+          return EditProfileView(profile: profile);
+        },
       ),
     ],
   );

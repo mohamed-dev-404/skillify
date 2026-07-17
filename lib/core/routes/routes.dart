@@ -13,4 +13,8 @@ class Routes {
 
   //* Main routes
   static const String main = '/main';
+
+  //* Profile routes
+  static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
 }

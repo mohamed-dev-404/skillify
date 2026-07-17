@@ -7,7 +7,7 @@ import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/features/explore/presentation/views/explore_view.dart';
-import 'package:skillify/features/profile/presentation/views/profile_view.dart';
+import 'package:skillify/features/profile/my_profile/views/profile_view.dart';
 import 'package:skillify/features/sessions/presentation/views/sessions_view.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
 import 'package:skillify/features/wallet/presentation/views/wallet_view.dart';

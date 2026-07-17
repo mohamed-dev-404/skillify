@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
+import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/features/profile/data/models/profile_model.dart';
+import 'package:skillify/core/routes/routes.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileHeaderCard extends StatelessWidget {
   final ProfileModel profile;
