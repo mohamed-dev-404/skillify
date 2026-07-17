@@ -9,6 +9,8 @@ import 'package:skillify/features/complete_profile/data/repo/complete_profile_re
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/explore/data/repo/explore_repo.dart';
 import 'package:skillify/features/explore/data/repo/explore_repo_impl.dart';
+import 'package:skillify/features/explore/offer_session/presentation/view_model/request_session_cubit/offer_session_cubit.dart';
+import 'package:skillify/features/explore/request_session/presentation/view_model/request_session_cubit/request_session_cubit.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:skillify/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
@@ -74,6 +76,13 @@ void setupServiceLocator() {
 
   getIt.registerFactory<PublicProfileCubit>(
     () => PublicProfileCubit(exploreRepo: getIt<ExploreRepo>()),
+  );
+  getIt.registerFactory<RequestSessionCubit>(
+    () => RequestSessionCubit(getIt<ExploreRepo>()),
+  );
+
+  getIt.registerFactory<OfferSessionCubit>(
+    () => OfferSessionCubit(getIt<ExploreRepo>()),
   );
 
   //! Profile Feature

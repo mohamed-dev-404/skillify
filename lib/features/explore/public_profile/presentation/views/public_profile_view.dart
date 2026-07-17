@@ -8,10 +8,11 @@ import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
 import 'package:skillify/features/explore/data/models/public_profile/public_profile_model.dart';
+import 'package:skillify/features/explore/offer_session/presentation/views/offer_session_button.dart';
 import 'package:skillify/features/explore/public_profile/presentation/view_model/public_profile_cubit/public_profile_cubit.dart';
-import 'package:skillify/features/explore/public_profile/presentation/views/widgets/public_profile_actions.dart';
 import 'package:skillify/features/explore/public_profile/presentation/views/widgets/public_profile_header_card.dart';
 import 'package:skillify/features/explore/public_profile/presentation/views/widgets/public_profile_sections.dart';
+import 'package:skillify/features/explore/request_session/presentation/views/request_session_button.dart';
 
 class PublicProfileView extends StatelessWidget {
   const PublicProfileView({super.key});
@@ -72,9 +73,15 @@ class _PublicProfileContent extends StatelessWidget {
         children: [
           PublicProfileHeaderCard(profile: profile),
           const Gap(14),
-          PublicProfileActions(
-            onRequestSession: () => _showComingSoon(context),
-            onOfferSession: () => _showComingSoon(context),
+          // open bottom sheet, and this will called from request||offer session views&viewModel
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: [
+              Expanded(child: RequestSessionButton(profile: profile)),
+              Expanded(child: OfferSessionButton(profile: profile)),
+            ],
           ),
           const Gap(20),
           PublicProfileSkillSection(
@@ -134,14 +141,6 @@ class _PublicProfileContent extends StatelessWidget {
         ),
       );
     }).toList();
-  }
-
-  void _showComingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Session flow is coming next.'),
-      ),
-    );
   }
 }
 
