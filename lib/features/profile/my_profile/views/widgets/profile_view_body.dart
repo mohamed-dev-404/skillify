@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:skillify/core/routes/routes.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
+import 'package:skillify/core/common/app_snack_bar.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
 import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_badges_section.dart';
@@ -85,6 +88,41 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  // ─── Screen Title & Edit Button ───
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'My Profile',
+                        style: AppStyles.bold24.copyWith(
+                          color: AppColors.textPrimaryNormal,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          final result = await context.push(
+                            Routes.editProfile,
+                            extra: profile,
+                          );
+                          if (context.mounted) {
+                            if (result == true) {
+                              AppSnackBar.success(
+                                context,
+                                'Profile updated successfully!',
+                              );
+                            }
+                            context.read<ProfileCubit>().getProfile();
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: AppColors.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(20),
+
                   // ─── Header ───
                   ProfileHeaderCard(profile: profile),
                   const Gap(20),
@@ -123,7 +161,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                           title: 'Skills I Want to Learn',
                           mainSkillName:
                               neededSkill.mainSkill?.name ?? 'Unknown',
-                          subSkills: neededSkill.subSkills
+                          subSkills:
+                              neededSkill.subSkills
                                   ?.map((e) => e.name ?? '')
                                   .toList() ??
                               [],
