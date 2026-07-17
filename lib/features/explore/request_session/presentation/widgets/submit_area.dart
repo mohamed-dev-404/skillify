@@ -7,8 +7,8 @@ class SubmitArea extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.isLoading = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String text;
   final VoidCallback? onPressed;

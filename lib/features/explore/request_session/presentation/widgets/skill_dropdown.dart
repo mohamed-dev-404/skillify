@@ -12,8 +12,8 @@ class SkillDropdown extends StatelessWidget {
     required this.skills,
     required this.onChanged,
     this.validator,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String label;
   final PublicProfileSkillModel? value;

@@ -61,7 +61,7 @@ class ProfileSummary extends StatelessWidget {
 }
 
 class Avatar extends StatelessWidget {
-  const Avatar({this.imageUrl, Key? key}) : super(key: key);
+  const Avatar({this.imageUrl, super.key});
 
   final String? imageUrl;
 
@@ -78,7 +78,7 @@ class Avatar extends StatelessWidget {
         child: Image.network(
           imageUrl ?? '',
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => Container(
+          errorBuilder: (_, _, _) => Container(
             color: AppColors.primaryLight,
             child: const Icon(LineIcons.user, color: AppColors.primary),
           ),
@@ -89,7 +89,7 @@ class Avatar extends StatelessWidget {
 }
 
 class RatingBadge extends StatelessWidget {
-  const RatingBadge({this.score, Key? key}) : super(key: key);
+  const RatingBadge({this.score, super.key});
 
   final num? score;
 

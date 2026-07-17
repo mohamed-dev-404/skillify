@@ -7,8 +7,8 @@ class DurationSelector extends StatelessWidget {
   const DurationSelector({
     required this.selectedMinutes,
     required this.onChanged,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final int selectedMinutes;
   final ValueChanged<int> onChanged;
@@ -20,7 +20,7 @@ class DurationSelector extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Label('Session Duration'),
+        const Label('Session Duration'),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.all(5),

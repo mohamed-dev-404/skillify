@@ -3,7 +3,7 @@ import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 
 class Label extends StatelessWidget {
-  const Label(this.text, {Key? key}) : super(key: key);
+  const Label(this.text, {super.key});
 
   final String text;
 

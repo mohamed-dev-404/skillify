@@ -4,7 +4,7 @@ import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 
 class SheetHeader extends StatelessWidget {
-  const SheetHeader({required this.title, Key? key}) : super(key: key);
+  const SheetHeader({required this.title, super.key});
 
   final String title;
 

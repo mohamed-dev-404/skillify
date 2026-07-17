@@ -3,7 +3,7 @@ import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 
 class SessionCost extends StatelessWidget {
-  const SessionCost({required this.cost, Key? key}) : super(key: key);
+  const SessionCost({required this.cost, super.key});
 
   final int cost;
 

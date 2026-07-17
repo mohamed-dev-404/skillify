@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:skillify/core/utils/assets/app_images.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 
@@ -15,8 +15,11 @@ class ExploreHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Explore', style: AppStyles.bold28),
-              const Gap(4),
+              Image.asset(
+                AppImages.logoPng,
+                width: 180,
+              ),
+              const Gap(8),
               Text(
                 'Find the right skill partner for you',
                 style: AppStyles.regular14.copyWith(
@@ -24,19 +27,6 @@ class ExploreHeader extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-        Container(
-          width: 46,
-          height: 46,
-          decoration: BoxDecoration(
-            color: AppColors.secondaryLight,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: const Icon(
-            LineIcons.compass,
-            color: AppColors.secondaryDark,
-            size: 25,
           ),
         ),
       ],

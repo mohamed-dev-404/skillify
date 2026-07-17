@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:skillify/core/routes/navigations_helper.dart';
+import 'package:skillify/core/utils/assets/app_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
@@ -25,15 +26,11 @@ class PublicProfileView extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => pop(context),
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-        ),
-        title: Text(
-          'Public Profile',
-          style: AppStyles.bold16.copyWith(
-            color: AppColors.textPrimaryNormal,
+          icon: Image.asset(
+            AppIcons.iconLogoPng,
+            width: 230,
           ),
         ),
-        centerTitle: true,
       ),
       body: SafeArea(
         top: false,

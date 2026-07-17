@@ -8,8 +8,8 @@ class InputField extends StatelessWidget {
     required this.onChanged,
     this.maxLines = 1,
     this.validator,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String hint;
   final ValueChanged<String> onChanged;
