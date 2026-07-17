@@ -26,4 +26,8 @@ class EndPoints {
   //? --- Lookups  --- ;
   static const String getLanguages = '/Languages';
   static const String getMainSkillsWithSubSkills = '/MainSkills/with-subskills';
+
+    //? --- Wallet  --- ;
+  static const String creditTransactionHistory = '/CreditTransactions/history';
+
 }

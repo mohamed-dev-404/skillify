@@ -10,6 +10,9 @@ import 'package:skillify/features/complete_profile/presentation/view_model/compl
 import 'package:skillify/features/explore/data/repo/explore_repo.dart';
 import 'package:skillify/features/explore/data/repo/explore_repo_impl.dart';
 import 'package:skillify/features/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/wallet/data/repo/wallet_repo.dart';
+import 'package:skillify/features/wallet/data/repo/wallet_repo_impl.dart';
+import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -66,6 +69,18 @@ void setupServiceLocator() {
       exploreRepo: getIt<ExploreRepo>(),
       completeProfileRepo: getIt<CompleteProfileRepo>(),
     ),
+  );
+
+  //! Wallet Feature
+
+  //? Repo
+  getIt.registerLazySingleton<WalletRepo>(
+    () => WalletRepoImpl(getIt<ApiConsumer>()),
+  );
+
+  //? Cubit
+  getIt.registerFactory<WalletCubit>(
+    () => WalletCubit(walletRepo: getIt<WalletRepo>()),
   );
 
   //! Profile Feature
