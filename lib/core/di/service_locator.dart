@@ -13,7 +13,11 @@ import 'package:skillify/features/explore/offer_session/presentation/view_model/
 import 'package:skillify/features/explore/request_session/presentation/view_model/request_session_cubit/request_session_cubit.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo_impl.dart';
-import 'package:skillify/features/profile/presentation/view_model/profile_cubit/profile_cubit.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
+import 'package:skillify/features/wallet/data/repo/wallet_repo.dart';
+import 'package:skillify/features/wallet/data/repo/wallet_repo_impl.dart';
+import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
+import 'package:skillify/features/profile/edit_profile/view_model/edit_profile_cubit/edit_profile_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -74,6 +78,18 @@ void setupServiceLocator() {
     ),
   );
 
+  //! Wallet Feature
+
+  //? Repo
+  getIt.registerLazySingleton<WalletRepo>(
+    () => WalletRepoImpl(getIt<ApiConsumer>()),
+  );
+
+  //? Cubit
+  getIt.registerFactory<WalletCubit>(
+    () => WalletCubit(walletRepo: getIt<WalletRepo>()),
+  );
+
   getIt.registerFactory<PublicProfileCubit>(
     () => PublicProfileCubit(exploreRepo: getIt<ExploreRepo>()),
   );
@@ -98,6 +114,10 @@ void setupServiceLocator() {
   //? Profile Cubit
   getIt.registerFactory<ProfileCubit>(
     () => ProfileCubit(profileRepo: getIt<ProfileRepo>()),
+  );
+
+  getIt.registerFactory<EditProfileCubit>(
+    () => EditProfileCubit(completeProfileRepo: getIt<CompleteProfileRepo>()),
   );
 
   //? Splash Cubit

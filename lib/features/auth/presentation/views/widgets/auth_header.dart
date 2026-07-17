@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:skillify/core/utils/assets/app_images.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
-import 'package:skillify/core/widgets/custom_svg_picture.dart';
 
 /// Shared header for auth views: app logo + title + subtitle.
 class AuthHeader extends StatelessWidget {

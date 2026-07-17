@@ -14,6 +14,10 @@ class Routes {
   //* Main routes
   static const String main = '/main';
 
+  //* Profile routes
+  static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
+
   //* Explore routes
   static const String publicProfilePath = '/public-profile/:userId';
   static String publicProfile(int userId) => '/public-profile/$userId';

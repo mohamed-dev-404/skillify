@@ -19,6 +19,7 @@ class NeededSkillSelection {
 /// Request body for `PUT /Users/me/profile` (JSON).
 /// The profile picture is uploaded separately to `PUT /Users/me/profile-picture`.
 class CompleteProfileRequestModel {
+  final String? fullName;
   final String? bio;
   final String? jobTitle;
   final int offeredMainSkillId;
@@ -28,6 +29,7 @@ class CompleteProfileRequestModel {
   final List<int> languageIds;
 
   const CompleteProfileRequestModel({
+    this.fullName,
     this.bio,
     this.jobTitle,
     required this.offeredMainSkillId,
@@ -38,6 +40,7 @@ class CompleteProfileRequestModel {
   });
 
   Map<String, dynamic> toJson() => {
+    if (fullName?.isNotEmpty == true) ApiKeys.fullName: fullName,
     if (bio?.isNotEmpty == true) ApiKeys.bio: bio,
     if (jobTitle?.isNotEmpty == true) ApiKeys.jobTitle: jobTitle,
     ApiKeys.offeredMainSkill: offeredMainSkillId,
