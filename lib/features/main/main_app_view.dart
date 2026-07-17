@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:skillify/core/di/service_locator.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/features/explore/presentation/views/explore_view.dart';
 import 'package:skillify/features/profile/presentation/views/profile_view.dart';
 import 'package:skillify/features/sessions/presentation/views/sessions_view.dart';
+import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
 import 'package:skillify/features/wallet/presentation/views/wallet_view.dart';
 
 class MainAppView extends StatefulWidget {
@@ -27,7 +30,10 @@ class _MainAppViewState extends State<MainAppView> {
     screens = [
       const ExploreView(),
       const SessionsView(),
-      const WalletView(),
+      BlocProvider(
+        create: (context) => getIt<WalletCubit>()..fetchWalletData(),
+        child: const WalletView(),
+      ),
       const ProfileView(),
     ];
   }
