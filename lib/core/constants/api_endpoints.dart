@@ -19,6 +19,7 @@ class EndPoints {
   //? --- Profile  --- ;
   static const String getProfile = '/Users/me';
   static const String completeProfile = '/Users/me/profile';
+  static const String updateProfilePicture = '/Users/me/profile-picture';
 
   //? --- Explore  --- ;
   static const String getUsers = '/Users';
