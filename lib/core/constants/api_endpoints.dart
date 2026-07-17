@@ -23,6 +23,8 @@ class EndPoints {
   //? --- Explore  --- ;
   static const String getUsers = '/Users';
   static String getUserById(int id) => '/Users/$id';
+  static const String requestSession = '/Sessions/request';
+  static const String offerSession = '/Sessions/offer';
 
   //? --- Lookups  --- ;
   static const String getLanguages = '/Languages';
