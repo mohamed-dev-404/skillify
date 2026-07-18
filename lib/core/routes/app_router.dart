@@ -10,6 +10,10 @@ import 'package:skillify/features/auth/presentation/views/register/register_view
 import 'package:skillify/features/main/main_app_view.dart';
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
 import 'package:skillify/features/complete_profile/presentation/views/complete_profile/complete_profile_view.dart';
+import 'package:skillify/features/sessions/join_session/views/call_view.dart';
+import 'package:skillify/features/sessions/join_session/models/call_view_params.dart';
+import 'package:skillify/features/sessions/sessions_tab/views/session_details.dart';
+import 'package:skillify/features/sessions/data/models/session_model.dart';
 
 class AppRouter {
   AppRouter._();
@@ -61,6 +65,42 @@ class AppRouter {
       GoRoute(
         path: Routes.main,
         builder: (context, state) => const MainAppView(),
+      ),
+
+      //* Call view
+      GoRoute(
+        path: Routes.callView,
+        builder: (context, state) {
+          final params = state.extra as CallViewParams?;
+          if (params == null) {
+            return const Scaffold(
+              body: Center(
+                child: Text(
+                  'CallView requires CallViewParams passed via extra.',
+                ),
+              ),
+            );
+          }
+          return CallView(params: params);
+        },
+      ),
+
+      //* Session Details view
+      GoRoute(
+        path: Routes.sessionDetails,
+        builder: (context, state) {
+          final session = state.extra as SessionModel?;
+          if (session == null) {
+            return const Scaffold(
+              body: Center(
+                child: Text(
+                  'Session details require a SessionModel passed via extra.',
+                ),
+              ),
+            );
+          }
+          return SessionDetailsView(session: session);
+        },
       ),
     ],
   );

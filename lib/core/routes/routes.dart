@@ -13,4 +13,10 @@ class Routes {
 
   //* Main routes
   static const String main = '/main';
+
+  //* call view route
+  static const String callView = '/call-view';
+
+  //* Session Details route
+  static const String sessionDetails = '/session-details';
 }

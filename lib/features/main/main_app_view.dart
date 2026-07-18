@@ -6,7 +6,7 @@ import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/features/explore/presentation/views/explore_view.dart';
 import 'package:skillify/features/profile/presentation/views/profile_view.dart';
-import 'package:skillify/features/sessions/presentation/views/sessions_view.dart';
+import 'package:skillify/features/sessions/sessions_tab/views/session_view.dart';
 import 'package:skillify/features/wallet/presentation/views/wallet_view.dart';
 
 class MainAppView extends StatefulWidget {

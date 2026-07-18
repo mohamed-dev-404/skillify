@@ -7,6 +7,12 @@ import 'package:skillify/features/auth/presentation/view_model/register_cubit/re
 import 'package:skillify/features/complete_profile/data/repo/complete_profile_repo.dart';
 import 'package:skillify/features/complete_profile/data/repo/complete_profile_repo_impl.dart';
 import 'package:skillify/features/complete_profile/presentation/view_model/complete_profile_cubit/complete_profile_cubit.dart';
+import 'package:skillify/features/sessions/data/repo/sessions_repo.dart';
+import 'package:skillify/features/sessions/data/repo/sessions_repo_impl.dart';
+import 'package:skillify/features/sessions/accept_session/view_model/accept_session_cubit/accept_session_cubit.dart';
+import 'package:skillify/features/sessions/decline_session/view_model/decline_session_cubit/decline_session_cubit.dart';
+import 'package:skillify/features/sessions/cancel_session/view_model/cancel_session_cubit/cancel_session_cubit.dart';
+import 'package:skillify/features/sessions/reschedule_session/view_model/reschedule_session_cubit/reschedule_session_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -68,4 +74,25 @@ void setupServiceLocator() {
   // getIt.registerLazySingleton<HomeRepo>(
   //   () => HomeRepoImpl(getIt<ApiConsumer>()),
   // );
+
+  //! Sessions Feature
+
+  //? Repo
+  getIt.registerLazySingleton<SessionsRepo>(
+    () => SessionsRepoImpl(getIt<ApiConsumer>()),
+  );
+
+  //? Cubits
+  getIt.registerFactory<AcceptSessionCubit>(
+    () => AcceptSessionCubit(sessionsRepo: getIt<SessionsRepo>()),
+  );
+  getIt.registerFactory<DeclineSessionCubit>(
+    () => DeclineSessionCubit(sessionsRepo: getIt<SessionsRepo>()),
+  );
+  getIt.registerFactory<CancelSessionCubit>(
+    () => CancelSessionCubit(sessionsRepo: getIt<SessionsRepo>()),
+  );
+  getIt.registerFactory<RescheduleSessionCubit>(
+    () => RescheduleSessionCubit(sessionsRepo: getIt<SessionsRepo>()),
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:skillify/core/services/cache/secure_storage/secure_storage_service.dart';
 import 'package:skillify/core/services/cache/shred_pref/shared_pref_service.dart';
 import 'package:skillify/core/logging/app_bloc_observer.dart';
@@ -17,14 +18,17 @@ class AppInitializer {
       // So we can log messages during app startup
       _initLogger();
 
-      //* (2) Setup Bloc observer
+      //* (2) Load environment variables from .env file
+      await dotenv.load(fileName: '.env');
+
+      //* (3) Setup Bloc observer
       _initBlocObserver();
 
-      //* (3) Initialize app storage systems
+      //* (4) Initialize app storage systems
       // SharedPreferences, SecureStorage
       await _initAppStorage();
 
-      //* (4) Setup service locator (GetIt)
+      //* (5) Setup service locator (GetIt)
       // Registers all app services and dependencies
       _initServiceLocator();
 
