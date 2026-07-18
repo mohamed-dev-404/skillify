@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skillify/core/services/cache/shred_pref/shared_pref_service.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/features/sessions/data/models/session_model.dart';
 import 'package:skillify/features/sessions/join_session/models/call_view_params.dart';
@@ -65,8 +66,9 @@ extension SessionUiHelper on SessionModel {
 
   /// Constructs CallViewParams for the Join button from the session data.
   CallViewParams get callViewParams {
+    final name = SharedPrefService.getFullName();
     final currentUserId = isRequested ? requesterId : helperId;
-    final currentUserName = isRequested ? requesterName : helperName;
+    final currentUserName = name ?? 'user';
     return CallViewParams(
       callID: zegoRoomId ?? '',
       userId: currentUserId.toString(),
