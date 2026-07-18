@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -6,7 +8,9 @@ import 'package:skillify/core/di/service_locator.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
-import 'package:skillify/features/explore/presentation/views/explore_view.dart';
+import 'package:skillify/features/explore/explore/presentation/view_model/explore_cubit/explore_cubit.dart';
+import 'package:skillify/features/explore/explore/presentation/views/explore_view.dart';
+import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 import 'package:skillify/features/profile/my_profile/views/profile_view.dart';
 import 'package:skillify/features/sessions/presentation/views/sessions_view.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
@@ -28,13 +32,19 @@ class _MainAppViewState extends State<MainAppView> {
   void initState() {
     super.initState();
     screens = [
-      const ExploreView(),
+      BlocProvider(
+        create: (context) => getIt<ExploreCubit>()..initialize(),
+        child: const ExploreView(),
+      ),
       const SessionsView(),
       BlocProvider(
         create: (context) => getIt<WalletCubit>()..fetchWalletData(),
         child: const WalletView(),
       ),
-      const ProfileView(),
+      BlocProvider(
+        create: (context) => getIt<ProfileCubit>(),
+        child: const ProfileView(),
+      ),
     ];
   }
 
@@ -48,68 +58,90 @@ class _MainAppViewState extends State<MainAppView> {
           left: 16.0,
           bottom: 16.0,
         ),
-        child: Container(
+        child: DecoratedBox(
+          // Outer box only carries the drop shadow (kept outside the clip).
           decoration: BoxDecoration(
-            color: AppColors.backgroundNormal,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(24),
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
             boxShadow: [
               BoxShadow(
-                blurRadius: 20,
-                color: AppColors.primaryDark.withValues(alpha: .1),
-                offset: const Offset(0, -5),
+                blurRadius: 24,
+                color: AppColors.primaryDark.withValues(alpha: .14),
+                offset: const Offset(0, 8),
               ),
             ],
           ),
-          child: SafeArea(
-            top:
-                false, // Prevents status bar height from causing huge top margin
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 10.0,
-              ),
-              child: GNav(
-                rippleColor: AppColors.primaryLightHover,
-                hoverColor: AppColors.primaryLight,
-                gap: 8,
-                activeColor: AppColors.backgroundLight,
-                iconSize: 22,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            child: BackdropFilter(
+              // Liquid Glass: blur whatever sits behind the bar.
+              filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(24)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      AppColors.backgroundNormal.withValues(alpha: .48),
+                      AppColors.backgroundNormal.withValues(alpha: .22),
+                    ],
+                  ),
+                  border: Border.all(
+                    color: AppColors.backgroundLight.withValues(alpha: .55),
+                    width: 1.2,
+                  ),
                 ),
-                duration: const Duration(milliseconds: 500),
-                tabBackgroundColor: AppColors.primary,
-                color: AppColors.textSecondaryNormal,
-                textStyle: AppStyles.medium14.copyWith(
-                  color: AppColors.backgroundLight,
+                child: SafeArea(
+                  top:
+                      false, // Prevents status bar height from causing huge top margin
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 10.0,
+                    ),
+                    child: GNav(
+                      rippleColor: AppColors.primaryLightHover,
+                      hoverColor: AppColors.primaryLight,
+                      gap: 8,
+                      activeColor: AppColors.backgroundLight,
+                      iconSize: 22,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      duration: const Duration(milliseconds: 500),
+                      tabBackgroundColor: AppColors.primary,
+                      color: AppColors.textSecondaryNormal,
+                      textStyle: AppStyles.medium14.copyWith(
+                        color: AppColors.backgroundLight,
+                      ),
+                      tabs: const [
+                        GButton(
+                          icon: LineIcons.compass,
+                          text: 'Explore',
+                        ),
+                        GButton(
+                          icon: LineIcons.calendar,
+                          text: 'Sessions',
+                        ),
+                        GButton(
+                          icon: LineIcons.wallet,
+                          text: 'Wallet',
+                        ),
+                        GButton(
+                          icon: LineIcons.user,
+                          text: 'Profile',
+                        ),
+                      ],
+                      selectedIndex: currentIndex,
+                      onTabChange: (index) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
+                    ),
+                  ),
                 ),
-                tabs: const [
-                  GButton(
-                    icon: LineIcons.compass,
-                    text: 'Explore',
-                  ),
-                  GButton(
-                    icon: LineIcons.calendar,
-                    text: 'Sessions',
-                  ),
-                  GButton(
-                    icon: LineIcons.wallet,
-                    text: 'Wallet',
-                  ),
-                  GButton(
-                    icon: LineIcons.user,
-                    text: 'Profile',
-                  ),
-                ],
-                selectedIndex: currentIndex,
-                onTabChange: (index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
               ),
             ),
           ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -48,42 +50,71 @@ class AppSnackBar {
         break;
     }
 
-    // Remove any currently visible SnackBar
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    final overlay = Overlay.of(context);
 
-    // Show the SnackBar
-    return ScaffoldMessenger.of(context)
-        .showSnackBar(
-          SnackBar(
-            duration: duration,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            content: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  Icon(icon, color: Colors.white),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+    final completer = Completer<void>();
+
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
+      builder: (ctx) {
+        return Positioned(
+          left: 16,
+          right: 16,
+          bottom: 12 + MediaQuery.of(ctx).viewInsets.bottom,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: const Duration(milliseconds: 240),
+            builder: (context, value, child) {
+              return Opacity(
+                opacity: value,
+                child: Transform.translate(
+                  offset: Offset(0, (1 - value) * 8),
+                  child: child,
+                ),
+              );
+            },
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  children: [
+                    Icon(icon, color: Colors.white),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        )
-        .closed;
+        );
+      },
+    );
+
+    // insert and schedule removal
+    overlay.insert(entry);
+
+    Future.delayed(duration, () async {
+      entry.remove();
+      if (!completer.isCompleted) completer.complete();
+    });
+
+    return completer.future;
   }
 
   ///* Shows a success SnackBar

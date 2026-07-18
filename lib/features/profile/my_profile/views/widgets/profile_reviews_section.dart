@@ -39,12 +39,19 @@ class ProfileReviewsSection extends StatelessWidget {
           // Section header with overall rating
           Row(
             children: [
-              const Icon(
-                Icons.rate_review_outlined,
-                color: AppColors.secondary,
-                size: 22,
+              Container(
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: AppColors.secondary.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.rate_review_outlined,
+                  color: AppColors.secondary,
+                  size: 20,
+                ),
               ),
-              const Gap(8),
+              const Gap(10),
               Text(
                 'Reviews',
                 style: AppStyles.bold16.copyWith(

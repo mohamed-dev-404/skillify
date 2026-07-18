@@ -16,4 +16,5 @@ abstract class AuthRepo {
     required String password,
     required String confirmPassword,
   });
+  Future<Either<String, Unit>> logout();
 }

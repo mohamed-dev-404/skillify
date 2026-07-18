@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:skillify/core/utils/assets/app_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
-import 'package:skillify/core/widgets/custom_svg_picture.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
 
 class TransactionItem extends StatelessWidget {
@@ -13,33 +11,39 @@ class TransactionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final amountColor = transaction.isPositive
-        ? AppColors.successNormal
-        : AppColors.errorNormal;
+    final isPositive = transaction.isPositive;
+    final accent = isPositive ? AppColors.successNormal : AppColors.errorNormal;
+    final accentBg = isPositive ? AppColors.successLight : AppColors.errorLight;
 
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColors.backgroundNormal,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.borderNormal),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryDark.withValues(alpha: .04),
+            blurRadius: 12,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
-              color: AppColors.secondaryLight,
-              borderRadius: BorderRadius.circular(12),
+              color: accentBg,
+              borderRadius: BorderRadius.circular(14),
             ),
-            child: const Center(
-              child: CustomSvgPicture(
-                path: AppIcons.checkCircleSvg,
-                color: AppColors.secondaryDark,
-                width: 22,
-                height: 22,
-              ),
+            child: Icon(
+              isPositive
+                  ? Icons.south_west_rounded
+                  : Icons.north_east_rounded,
+              color: accent,
+              size: 22,
             ),
           ),
           const Gap(12),
@@ -64,9 +68,16 @@ class TransactionItem extends StatelessWidget {
             ),
           ),
           const Gap(12),
-          Text(
-            transaction.amount,
-            style: AppStyles.bold14.copyWith(color: amountColor),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: accentBg,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              transaction.amount,
+              style: AppStyles.bold14.copyWith(color: accent),
+            ),
           ),
         ],
       ),
