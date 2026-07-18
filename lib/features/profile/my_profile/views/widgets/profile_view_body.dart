@@ -8,12 +8,14 @@ import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/core/common/app_snack_bar.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
+import 'package:skillify/features/explore/explore/presentation/views/widgets/explore_header.dart';
 import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_badges_section.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_header_card.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_languages_section.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_reviews_section.dart';
 import 'package:skillify/features/profile/my_profile/views/widgets/profile_skill_card.dart';
+import 'package:skillify/features/settings/presentation/views/settings_view.dart';
 
 class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({super.key});
@@ -98,26 +100,41 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                           color: AppColors.textPrimaryNormal,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () async {
-                          final result = await context.push(
-                            Routes.editProfile,
-                            extra: profile,
-                          );
-                          if (context.mounted) {
-                            if (result == true) {
-                              AppSnackBar.success(
-                                context,
-                                'Profile updated successfully!',
+                      Row(
+                        spacing: 4,
+                        children: [
+                          HeaderActionButton(
+                            icon: Icons.edit,
+                            iconColor: AppColors.secondary,
+                            onTap: () async {
+                              final result = await context.push(
+                                Routes.editProfile,
+                                extra: profile,
                               );
-                            }
-                            context.read<ProfileCubit>().getProfile();
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.edit,
-                          color: AppColors.secondary,
-                        ),
+                              if (context.mounted) {
+                                if (result == true) {
+                                  AppSnackBar.success(
+                                    context,
+                                    'Profile updated successfully!',
+                                  );
+                                }
+                                context.read<ProfileCubit>().getProfile();
+                              }
+                            },
+                          ),
+                          HeaderActionButton(
+                            icon: Icons.settings_rounded,
+                            iconColor: AppColors.secondary,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const SettingsView(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

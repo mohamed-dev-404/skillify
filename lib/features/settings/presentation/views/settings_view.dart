@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skillify/core/routes/routes.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
@@ -89,7 +90,9 @@ class SettingsView extends StatelessWidget {
                       subtitle: item.subtitle,
                       icon: item.icon,
                       iconColor: item.iconColor,
-                      onTap: () {},
+                      onTap: item.title == 'Notifications'
+                          ? () => context.push(Routes.notifications)
+                          : null,
                     );
                   }),
                 ),

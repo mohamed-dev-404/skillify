@@ -21,4 +21,7 @@ class Routes {
   //* Explore routes
   static const String publicProfilePath = '/public-profile/:userId';
   static String publicProfile(int userId) => '/public-profile/$userId';
+
+  //* Notification routes
+  static const String notifications = '/notifications';
 }

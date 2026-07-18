@@ -15,6 +15,8 @@ import 'package:skillify/features/profile/my_profile/views/profile_view.dart';
 import 'package:skillify/features/profile/edit_profile/views/edit_profile_view.dart';
 import 'package:skillify/features/explore/public_profile/presentation/view_model/public_profile_cubit/public_profile_cubit.dart';
 import 'package:skillify/features/explore/public_profile/presentation/views/public_profile_view.dart';
+import 'package:skillify/features/notification/presentation/view_model/notification_cubit/notification_cubit.dart';
+import 'package:skillify/features/notification/presentation/views/notifications_view.dart';
 
 class AppRouter {
   AppRouter._();
@@ -99,6 +101,16 @@ class AppRouter {
           final profile = state.extra as ProfileModel;
           return EditProfileView(profile: profile);
         },
+      ),
+
+      // * Notifications view
+      GoRoute(
+        path: Routes.notifications,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              getIt<NotificationCubit>()..fetchNotifications(),
+          child: const NotificationsView(),
+        ),
       ),
     ],
   );
