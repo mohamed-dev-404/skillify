@@ -14,6 +14,7 @@ import 'package:skillify/features/explore/request_session/presentation/view_mode
 import 'package:skillify/features/profile/data/repo/profile_repo.dart';
 import 'package:skillify/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:skillify/features/profile/my_profile/view_model/profile_cubit/profile_cubit.dart';
+import 'package:skillify/features/settings/presentation/view_model/logout_cubit/logout_cubit.dart';
 import 'package:skillify/features/wallet/data/repo/wallet_repo.dart';
 import 'package:skillify/features/wallet/data/repo/wallet_repo_impl.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
@@ -47,6 +48,9 @@ void setupServiceLocator() {
   );
   getIt.registerFactory<RegisterCubit>(
     () => RegisterCubit(authRepo: getIt<AuthRepo>()),
+  );
+  getIt.registerFactory<LogoutCubit>(
+    () => LogoutCubit(getIt<AuthRepo>()),
   );
 
   //! Complete Profile Feature

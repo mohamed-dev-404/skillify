@@ -31,7 +31,6 @@ class EndPoints {
   static const String getLanguages = '/Languages';
   static const String getMainSkillsWithSubSkills = '/MainSkills/with-subskills';
 
-    //? --- Wallet  --- ;
+  //? --- Wallet  --- ;
   static const String creditTransactionHistory = '/CreditTransactions/history';
-
 }

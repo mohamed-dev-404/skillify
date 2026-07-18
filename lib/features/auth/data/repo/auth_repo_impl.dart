@@ -60,6 +60,18 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  @override
+  Future<Either<String, Unit>> logout() async {
+    try {
+      await api.post(EndPoints.logout);
+      return const Right(unit);
+    } on AppException catch (e) {
+      return Left(e.errorModel.errorMessage);
+    } catch (_) {
+      return const Left('Something went wrong. Please try again');
+    }
+  }
+
   /// Persist the tokens so the interceptors can attach / refresh them.
   Future<void> _cacheTokens(AuthModel auth) async {
     await SecureStorageService.instance.saveAccessToken(auth.accessToken);
