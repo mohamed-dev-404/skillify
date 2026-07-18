@@ -13,15 +13,21 @@ import 'package:skillify/features/sessions/sessions_tab/views/widgets/session_ra
 import 'package:skillify/features/sessions/sessions_tab/views/widgets/session_ui_helper.dart';
 
 class SessionCard extends StatelessWidget {
-  const SessionCard({super.key, required this.session});
+  const SessionCard({
+    super.key,
+    required this.session,
+    this.onSuccess,
+  });
 
   final SessionModel session;
+  final VoidCallback? onSuccess;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        push(context, Routes.sessionDetails, extra: session);
+      onTap: () async {
+        await push(context, Routes.sessionDetails, extra: session);
+        onSuccess?.call();
       },
       child: Container(
         decoration: BoxDecoration(
@@ -83,7 +89,10 @@ class SessionCard extends StatelessWidget {
               const _CardDivider(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
-                child: SessionActionsSection(session: session),
+                child: SessionActionsSection(
+                  session: session,
+                  onSuccess: onSuccess,
+                ),
               ),
             ],
           ],

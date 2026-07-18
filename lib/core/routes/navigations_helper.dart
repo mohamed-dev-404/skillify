@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 /// A helper methods for navigation using GoRouter.
 
 //* Pushes a new screen onto the navigation stack
-void push(BuildContext context, String routeName, {Object? extra}) {
-  context.push(routeName, extra: extra);
+Future<T?> push<T extends Object?>(BuildContext context, String routeName, {Object? extra}) {
+  return context.push<T>(routeName, extra: extra);
 }
 
 //* Pushes a new screen onto the navigation stack, replacing the current one.

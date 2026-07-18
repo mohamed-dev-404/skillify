@@ -12,7 +12,7 @@ class JoinSessionButton extends StatelessWidget {
     this.label = 'Join Session',
     this.minWidth = double.infinity,
     this.minHeight = 48,
-    this.borderRadius = 12,
+    this.borderRadius = 14,
     this.isCompact = false,
   });
 
@@ -26,32 +26,50 @@ class JoinSessionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(
+        minWidth: minWidth,
+        minHeight: minHeight,
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF22C55E),
+            Color(0xFF16A34A),
+          ],
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.successNormal.withValues(alpha: 0.25),
+            color: AppColors.successNormal.withValues(alpha: 0.35),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
+          BoxShadow(
+            color: AppColors.successNormal.withValues(alpha: 0.15),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+          ),
         ],
       ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.successNormal,
-          foregroundColor: AppColors.backgroundNormal,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          minimumSize: Size(minWidth, minHeight),
-          maximumSize: Size(double.infinity, minHeight),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            push(context, Routes.callView, extra: params);
+          },
+          borderRadius: BorderRadius.circular(borderRadius),
+          splashColor: Colors.white.withValues(alpha: 0.2),
+          highlightColor: Colors.white.withValues(alpha: 0.1),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: isCompact ? 12 : 20,
+              vertical: isCompact ? 10 : 14,
+            ),
+            child: isCompact ? _buildCompactStyle() : _buildLargeStyle(),
           ),
-          elevation: 0, // Handled by outer container shadow
         ),
-        onPressed: () {
-          push(context, Routes.callView, extra: params);
-        },
-        child: isCompact ? _buildCompactStyle() : _buildLargeStyle(),
       ),
     );
   }
@@ -61,14 +79,14 @@ class JoinSessionButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColors.backgroundNormal.withValues(alpha: 0.2),
-            shape: BoxShape.circle,
+            color: Colors.white.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: const Icon(
             Icons.videocam_rounded,
-            color: AppColors.backgroundNormal,
+            color: Colors.white,
             size: 20,
           ),
         ),
@@ -76,8 +94,15 @@ class JoinSessionButton extends StatelessWidget {
         Text(
           label,
           style: AppStyles.bold16.copyWith(
-            color: AppColors.backgroundNormal,
+            color: Colors.white,
+            letterSpacing: 0.3,
           ),
+        ),
+        const SizedBox(width: 8),
+        Icon(
+          Icons.arrow_forward_rounded,
+          color: Colors.white.withValues(alpha: 0.7),
+          size: 18,
         ),
       ],
     );
@@ -90,18 +115,18 @@ class JoinSessionButton extends StatelessWidget {
       children: [
         const Icon(
           Icons.videocam_rounded,
-          color: AppColors.backgroundNormal,
+          color: Colors.white,
           size: 18,
         ),
         const SizedBox(width: 8),
         Text(
           label,
           style: AppStyles.bold14.copyWith(
-            color: AppColors.backgroundNormal,
+            color: Colors.white,
+            letterSpacing: 0.3,
           ),
         ),
       ],
     );
   }
 }
-

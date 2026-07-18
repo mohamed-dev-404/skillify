@@ -12,8 +12,13 @@ import 'package:skillify/features/sessions/reschedule_session/view_model/resched
 
 class RescheduleSessionBottomSheet extends StatefulWidget {
   final int sessionId;
+  final VoidCallback? onSuccess;
 
-  const RescheduleSessionBottomSheet({super.key, required this.sessionId});
+  const RescheduleSessionBottomSheet({
+    super.key,
+    required this.sessionId,
+    this.onSuccess,
+  });
 
   @override
   State<RescheduleSessionBottomSheet> createState() =>
@@ -94,8 +99,9 @@ class _RescheduleSessionBottomSheetState
       child: BlocConsumer<RescheduleSessionCubit, RescheduleSessionState>(
         listener: (context, state) {
           if (state is RescheduleSessionSuccess) {
-            Navigator.pop(context);
             AppToast.success(context, 'Session rescheduled successfully!');
+            widget.onSuccess?.call();
+            Navigator.pop(context);
           } else if (state is RescheduleSessionFailure) {
             AppToast.error(context, state.message);
           }

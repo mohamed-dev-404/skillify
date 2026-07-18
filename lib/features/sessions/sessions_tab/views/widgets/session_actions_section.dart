@@ -13,16 +13,18 @@ class SessionActionsSection extends StatelessWidget {
     super.key,
     required this.session,
     this.shouldBack = false,
+    this.onSuccess,
   });
 
   final SessionModel session;
   final bool shouldBack;
+  final VoidCallback? onSuccess;
 
   @override
   Widget build(BuildContext context) {
     if (!session.hasActions) return const SizedBox.shrink();
 
-    final actions = _resolveActions(session, shouldBack);
+    final actions = _resolveActions(session, shouldBack, onSuccess);
     if (actions.isEmpty) return const SizedBox.shrink();
 
     return Column(
@@ -51,7 +53,7 @@ class SessionActionsSection extends StatelessWidget {
     }
   }
 
-  _ResolvedActions _resolveActions(SessionModel session, bool shouldBack) {
+  _ResolvedActions _resolveActions(SessionModel session, bool shouldBack, VoidCallback? onSuccess) {
     Widget? joinButton;
     final secondary = <Widget>[];
 
@@ -64,12 +66,14 @@ class SessionActionsSection extends StatelessWidget {
                 sessionId: session.id,
                 minHeight: 42,
                 shouldBack: shouldBack,
+                onSuccess: onSuccess,
               ),
             ),
             Expanded(
               child: RescheduleSessionButton(
                 sessionId: session.id,
                 minHeight: 42,
+                onSuccess: onSuccess,
               ),
             ),
           ]);
@@ -80,6 +84,7 @@ class SessionActionsSection extends StatelessWidget {
                 sessionId: session.id,
                 minHeight: 42,
                 shouldBack: shouldBack,
+                onSuccess: onSuccess,
               ),
             ),
             Expanded(
@@ -87,12 +92,14 @@ class SessionActionsSection extends StatelessWidget {
                 sessionId: session.id,
                 minHeight: 42,
                 shouldBack: shouldBack,
+                onSuccess: onSuccess,
               ),
             ),
             Expanded(
               child: RescheduleSessionButton(
                 sessionId: session.id,
                 minHeight: 42,
+                onSuccess: onSuccess,
               ),
             ),
           ]);
@@ -109,6 +116,7 @@ class SessionActionsSection extends StatelessWidget {
                 sessionId: session.id,
                 minHeight: 42,
                 shouldBack: shouldBack,
+                onSuccess: onSuccess,
               ),
             ),
             Expanded(
@@ -116,12 +124,14 @@ class SessionActionsSection extends StatelessWidget {
                 sessionId: session.id,
                 minHeight: 42,
                 shouldBack: shouldBack,
+                onSuccess: onSuccess,
               ),
             ),
             Expanded(
               child: RescheduleSessionButton(
                 sessionId: session.id,
                 minHeight: 42,
+                onSuccess: onSuccess,
               ),
             ),
           ]);

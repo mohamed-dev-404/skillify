@@ -25,17 +25,13 @@ class EndPoints {
   static const String getMainSkillsWithSubSkills = '/MainSkills/with-subskills';
 
   //? --- Sessions --- ;
-  static const String getRequestedSessions = '/api/Sessions/requested';
-  static const String getReceivedSessions = '/api/Sessions/received';
-  static String sessionById(int sessionId) => '/api/Sessions/$sessionId';
-  static String zegoToken(int sessionId) =>
-      '/api/Sessions/$sessionId/zego-token';
-  static String acceptSession(int sessionId) =>
-      '/api/Sessions/$sessionId/accept';
-  static String declineSession(int sessionId) =>
-      '/api/Sessions/$sessionId/decline';
-  static String cancelSession(int sessionId) =>
-      '/api/Sessions/$sessionId/cancel';
+  static const String getRequestedSessions = '/Sessions/requested';
+  static const String getReceivedSessions = '/Sessions/received';
+  static String sessionById(int sessionId) => '/Sessions/$sessionId';
+  static String zegoToken(int sessionId) => '/Sessions/$sessionId/zego-token';
+  static String acceptSession(int sessionId) => '/Sessions/$sessionId/accept';
+  static String declineSession(int sessionId) => '/Sessions/$sessionId/decline';
+  static String cancelSession(int sessionId) => '/Sessions/$sessionId/cancel';
   static String rescheduleSession(int sessionId) =>
-      '/api/Sessions/$sessionId/reschedule';
+      '/Sessions/$sessionId/reschedule';
 }

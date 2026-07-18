@@ -13,6 +13,7 @@ import 'package:skillify/features/sessions/accept_session/view_model/accept_sess
 import 'package:skillify/features/sessions/decline_session/view_model/decline_session_cubit/decline_session_cubit.dart';
 import 'package:skillify/features/sessions/cancel_session/view_model/cancel_session_cubit/cancel_session_cubit.dart';
 import 'package:skillify/features/sessions/reschedule_session/view_model/reschedule_session_cubit/reschedule_session_cubit.dart';
+import 'package:skillify/features/sessions/sessions_tab/view_model/sessions_cubit/sessions_cubit.dart';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -94,5 +95,8 @@ void setupServiceLocator() {
   );
   getIt.registerFactory<RescheduleSessionCubit>(
     () => RescheduleSessionCubit(sessionsRepo: getIt<SessionsRepo>()),
+  );
+  getIt.registerFactory<SessionsCubit>(
+    () => SessionsCubit(getIt<SessionsRepo>()),
   );
 }
