@@ -33,4 +33,9 @@ class EndPoints {
 
   //? --- Wallet  --- ;
   static const String creditTransactionHistory = '/CreditTransactions/history';
+
+  //? --- Notifications  --- ;
+  static const String getNotifications = '/Notifications';
+  static const String unreadNotificationsCount =
+      '/Notifications/unread-count';
 }

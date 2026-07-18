@@ -18,6 +18,9 @@ import 'package:skillify/features/settings/presentation/view_model/logout_cubit/
 import 'package:skillify/features/wallet/data/repo/wallet_repo.dart';
 import 'package:skillify/features/wallet/data/repo/wallet_repo_impl.dart';
 import 'package:skillify/features/wallet/presentation/view_model/wallet_cubit/wallet_cubit.dart';
+import 'package:skillify/features/notification/data/repo/notification_repo.dart';
+import 'package:skillify/features/notification/data/repo/notification_repo_impl.dart';
+import 'package:skillify/features/notification/presentation/view_model/notification_cubit/notification_cubit.dart';
 import 'package:skillify/features/profile/edit_profile/view_model/edit_profile_cubit/edit_profile_cubit.dart';
 
 import 'package:dio/dio.dart';
@@ -92,6 +95,18 @@ void setupServiceLocator() {
   //? Cubit
   getIt.registerFactory<WalletCubit>(
     () => WalletCubit(walletRepo: getIt<WalletRepo>()),
+  );
+
+  //! Notification Feature
+
+  //? Repo
+  getIt.registerLazySingleton<NotificationRepo>(
+    () => NotificationRepoImpl(getIt<ApiConsumer>()),
+  );
+
+  //? Cubit
+  getIt.registerFactory<NotificationCubit>(
+    () => NotificationCubit(notificationRepo: getIt<NotificationRepo>()),
   );
 
   getIt.registerFactory<PublicProfileCubit>(

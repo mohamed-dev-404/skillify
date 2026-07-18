@@ -64,6 +64,12 @@ class ApiKeys {
   static const String student = 'student';
   static const String confirmPassword = 'confirmPassword';
 
+  //? Notification Keys
+  static const String title = 'title';
+  static const String isRead = 'isRead';
+  static const String createdAt = 'createdAt';
+  static const String count = 'count';
+
   //? Complete Profile keys
   static const String bio = 'bio';
   static const String jobTitle = 'jobTitle';
