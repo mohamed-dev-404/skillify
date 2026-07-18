@@ -29,7 +29,6 @@ class AppRouter {
       GlobalKey<NavigatorState>();
 
   static final router = GoRouter(
-    // TODO: restore Routes.splash as initial location when splash is ready
     initialLocation: Routes.login,
     routes: [
       //* Splash view

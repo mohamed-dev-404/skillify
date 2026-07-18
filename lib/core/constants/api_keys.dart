@@ -88,7 +88,6 @@ class ApiKeys {
   //? Notification Keys
   static const String title = 'title';
   static const String isRead = 'isRead';
-  static const String createdAt = 'createdAt';
   static const String count = 'count';
 
   //? Complete Profile keys
@@ -99,7 +98,6 @@ class ApiKeys {
   static const String offeredDescription = 'offeredDescription';
   static const String neededSkills = 'neededSkills';
   static const String languageIds = 'languageIds';
-  static const String mainSkillId = 'mainSkillId';
   static const String subSkillIds = 'subSkillIds';
   static const String profilePicture = 'profilePicture';
 }

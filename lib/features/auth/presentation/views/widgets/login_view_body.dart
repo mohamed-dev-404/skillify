@@ -94,7 +94,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               alignment: AlignmentDirectional.centerEnd,
               child: TextButton(
                 onPressed: () {
-                  // TODO: navigate to forgot password when the view exists
+                  
                 },
                 child: Text(
                   'Forgot Password?',
