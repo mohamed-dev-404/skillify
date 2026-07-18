@@ -108,4 +108,20 @@ class SharedPrefService {
   static Future<void> deleteUserData() async {
     await removeData(key: SharedPrefKeys.user);
   }
+
+  //* this method to cache the logged-in user's full name
+  static Future<void> saveFullName(String? fullName) async {
+    if (fullName == null || fullName.trim().isEmpty) return;
+    await setString(key: SharedPrefKeys.fullName, value: fullName.trim());
+  }
+
+  //* this method to get the cached full name (null if not cached yet)
+  static String? getFullName() {
+    return getString(key: SharedPrefKeys.fullName);
+  }
+
+  //* this method to delete the cached full name
+  static Future<void> deleteFullName() async {
+    await removeData(key: SharedPrefKeys.fullName);
+  }
 }
