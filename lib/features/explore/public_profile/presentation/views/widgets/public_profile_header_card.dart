@@ -15,47 +15,90 @@ class PublicProfileHeaderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasBio = profile.bio != null && profile.bio!.trim().isNotEmpty;
+
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.backgroundNormal,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryDark.withValues(alpha: 0.06),
-            blurRadius: 15,
-            offset: const Offset(0, 4),
+            color: AppColors.primary.withValues(alpha: .28),
+            blurRadius: 26,
+            offset: const Offset(0, 14),
           ),
         ],
-        border: Border.all(color: AppColors.borderNormal),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              _ProfileAvatar(imageUrl: profile.profilePictureUrl),
-              const Gap(16),
-              Expanded(
-                child: _ProfileIdentity(profile: profile),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Stack(
+          children: [
+            // Gradient base
+            const Positioned.fill(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.primaryDark,
+                      AppColors.primary,
+                      AppColors.primaryHover,
+                    ],
+                  ),
+                ),
               ),
-            ],
-          ),
-          if (profile.bio != null && profile.bio!.trim().isNotEmpty) ...[
-            const Gap(16),
-            const Divider(color: AppColors.borderNormal, height: 1),
-            const Gap(16),
-            Text(
-              profile.bio!.trim(),
-              style: AppStyles.regular14.copyWith(
-                color: AppColors.textSecondaryNormal,
-                height: 1.45,
+            ),
+
+            // Decorative brand glow circles
+            Positioned(
+              top: -46,
+              right: -30,
+              child: _GlowCircle(
+                size: 150,
+                color: AppColors.secondary.withValues(alpha: .20),
+              ),
+            ),
+            Positioned(
+              bottom: -60,
+              left: -26,
+              child: _GlowCircle(
+                size: 170,
+                color: AppColors.accent.withValues(alpha: .14),
+              ),
+            ),
+
+            // Content
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      _ProfileAvatar(imageUrl: profile.profilePictureUrl),
+                      const Gap(16),
+                      Expanded(
+                        child: _ProfileIdentity(profile: profile),
+                      ),
+                    ],
+                  ),
+                  if (hasBio) ...[
+                    const Gap(16),
+                    Text(
+                      profile.bio!.trim(),
+                      style: AppStyles.regular14.copyWith(
+                        color: Colors.white.withValues(alpha: .85),
+                        height: 1.45,
+                      ),
+                    ),
+                  ],
+                  const Gap(20),
+                  _PublicProfileStats(profile: profile),
+                ],
               ),
             ),
           ],
-          const Gap(18),
-          _PublicProfileStats(profile: profile),
-        ],
+        ),
       ),
     );
   }
@@ -73,10 +116,14 @@ class _ProfileAvatar extends StatelessWidget {
       height: 82,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(
-          color: AppColors.secondary,
-          width: 2.5,
-        ),
+        border: Border.all(color: Colors.white, width: 2.5),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryDarker.withValues(alpha: .3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: ClipOval(
         child: Image.network(
@@ -91,9 +138,7 @@ class _ProfileAvatar extends StatelessWidget {
                 height: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.secondary,
-                  ),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               ),
             );
@@ -126,20 +171,25 @@ class _ProfileIdentity extends StatelessWidget {
       children: [
         Text(
           profile.fullName ?? 'No Name',
-          style: AppStyles.bold20.copyWith(
-            color: AppColors.textPrimaryNormal,
-          ),
+          style: AppStyles.bold20.copyWith(color: Colors.white),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
-        const Gap(5),
-        Text(
-          profile.jobTitle ?? 'Skillify Member',
-          style: AppStyles.medium14.copyWith(
-            color: AppColors.secondaryDark,
+        const Gap(6),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: .14),
+            borderRadius: BorderRadius.circular(999),
           ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+          child: Text(
+            profile.jobTitle ?? 'Skillify Member',
+            style: AppStyles.medium12.copyWith(
+              color: AppColors.secondaryLight,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
@@ -156,24 +206,18 @@ class _PublicProfileStats extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _StatTile(
+          child: _StatChip(
             icon: LineIcons.star,
             label: 'Rating',
             value: _ratingText(profile.overallRatingScore),
-            backgroundColor: AppColors.warningLight,
-            iconColor: AppColors.warningNormal,
-            valueColor: AppColors.warningDark,
           ),
         ),
         const Gap(12),
         Expanded(
-          child: _StatTile(
+          child: _StatChip(
             icon: LineIcons.history,
             label: 'Sessions',
             value: '${profile.completedSessions ?? 0} Done',
-            backgroundColor: AppColors.primaryLight,
-            iconColor: AppColors.primary,
-            valueColor: AppColors.primaryActive,
           ),
         ),
       ],
@@ -186,34 +230,29 @@ class _PublicProfileStats extends StatelessWidget {
   }
 }
 
-class _StatTile extends StatelessWidget {
-  const _StatTile({
+class _StatChip extends StatelessWidget {
+  const _StatChip({
     required this.icon,
     required this.label,
     required this.value,
-    required this.backgroundColor,
-    required this.iconColor,
-    required this.valueColor,
   });
 
   final IconData icon;
   final String label;
   final String value;
-  final Color backgroundColor;
-  final Color iconColor;
-  final Color valueColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withValues(alpha: .12),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: .18)),
       ),
       child: Row(
         children: [
-          Icon(icon, color: iconColor, size: 19),
+          Icon(icon, color: Colors.white, size: 19),
           const Gap(8),
           Expanded(
             child: Column(
@@ -222,16 +261,14 @@ class _StatTile extends StatelessWidget {
                 Text(
                   label,
                   style: AppStyles.regular12.copyWith(
-                    color: AppColors.textSecondaryNormal,
+                    color: Colors.white.withValues(alpha: .75),
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   value,
-                  style: AppStyles.bold14.copyWith(
-                    color: valueColor,
-                  ),
+                  style: AppStyles.bold14.copyWith(color: Colors.white),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -240,6 +277,22 @@ class _StatTile extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _GlowCircle extends StatelessWidget {
+  const _GlowCircle({required this.size, required this.color});
+
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }

@@ -33,12 +33,19 @@ class ProfileLanguagesSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.language_outlined,
-                color: AppColors.accent,
-                size: 22,
+              Container(
+                padding: const EdgeInsets.all(9),
+                decoration: BoxDecoration(
+                  color: AppColors.accent.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.language_outlined,
+                  color: AppColors.accent,
+                  size: 20,
+                ),
               ),
-              const Gap(8),
+              const Gap(10),
               Text(
                 'Languages',
                 style: AppStyles.bold16.copyWith(
