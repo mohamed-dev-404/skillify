@@ -24,4 +24,10 @@ class Routes {
 
   //* Notification routes
   static const String notifications = '/notifications';
+
+  //* call view route
+  static const String callView = '/call-view';
+
+  //* Session Details route
+  static const String sessionDetails = '/session-details';
 }

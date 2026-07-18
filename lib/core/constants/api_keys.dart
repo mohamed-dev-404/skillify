@@ -17,6 +17,27 @@ class ApiKeys {
   static const String iconKey = 'iconKey';
   static const String subSkills = 'subSkills';
   static const String profileCompleted = 'profileCompleted';
+  static const String requesterId = 'requesterId';
+  static const String requesterName = 'requesterName';
+  static const String helperId = 'helperId';
+  static const String helperName = 'helperName';
+  static const String mainSkillId = 'mainSkillId';
+  static const String mainSkillName = 'mainSkillName';
+  static const String topic = 'topic';
+  static const String problemDescription = 'problemDescription';
+  static const String durationMinutes = 'durationMinutes';
+  static const String creditCost = 'creditCost';
+  static const String scheduledAt = 'scheduledAt';
+  static const String acceptedAt = 'acceptedAt';
+  static const String completedAt = 'completedAt';
+  static const String createdAt = 'createdAt';
+  static const String zegoRoomId = 'zegoRoomId';
+  static const String newScheduledAt = 'newScheduledAt';
+  static const String comment = 'comment';
+  static const String userRated = 'userRated';
+  static const String userCanRate = 'userCanRate';
+  static const String userRatingScore = 'userRatingScore';
+  static const String pendingRescheduleByUser = 'pendingRescheduleByUser';
 
   //? User Model Keys
   static const String email = 'email';
@@ -67,7 +88,6 @@ class ApiKeys {
   //? Notification Keys
   static const String title = 'title';
   static const String isRead = 'isRead';
-  static const String createdAt = 'createdAt';
   static const String count = 'count';
 
   //? Complete Profile keys
@@ -78,7 +98,6 @@ class ApiKeys {
   static const String offeredDescription = 'offeredDescription';
   static const String neededSkills = 'neededSkills';
   static const String languageIds = 'languageIds';
-  static const String mainSkillId = 'mainSkillId';
   static const String subSkillIds = 'subSkillIds';
   static const String profilePicture = 'profilePicture';
 }
