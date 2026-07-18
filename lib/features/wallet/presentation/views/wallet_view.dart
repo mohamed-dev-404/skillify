@@ -97,7 +97,7 @@ class _WalletContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 28),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
