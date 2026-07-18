@@ -1,7 +1,7 @@
 class AppIcons {
   AppIcons._();
 
-  static const String iconLogoSvg = 'assets/icons/icon_logo.svg';
+  static const String iconLogoPng = 'assets/icons/icon_logo.png';
 
   //* Input field icons
   static const String mailSvg = 'assets/icons/mail.svg';

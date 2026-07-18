@@ -85,17 +85,23 @@ class ApiKeys {
   static const String student = 'student';
   static const String confirmPassword = 'confirmPassword';
 
-  //? Complete Profile form-data keys (PascalCase — as the API multipart expects)
-  static const String profilePictureForm = 'ProfilePicture';
-  static const String bioForm = 'Bio';
-  static const String jobTitleForm = 'JobTitle';
-  static const String offeredMainSkillForm = 'OfferedMainSkill';
-  static const String offeredSubSkillsForm = 'OfferedSubSkills';
-  static const String offeredDescriptionForm = 'OfferedDescription';
-  static const String neededSkillsForm = 'NeededSkills';
-  static const String languageIdsForm = 'LanguageIds';
-  static const String mainSkillIdForm = 'mainSkillId';
-  static const String subSkillIdsForm = 'subSkillIds';
+  //? Notification Keys
+  static const String title = 'title';
+  static const String isRead = 'isRead';
+  static const String createdAt = 'createdAt';
+  static const String count = 'count';
+
+  //? Complete Profile keys
+  static const String bio = 'bio';
+  static const String jobTitle = 'jobTitle';
+  static const String offeredMainSkill = 'offeredMainSkill';
+  static const String offeredSubSkills = 'offeredSubSkills';
+  static const String offeredDescription = 'offeredDescription';
+  static const String neededSkills = 'neededSkills';
+  static const String languageIds = 'languageIds';
+  static const String mainSkillId = 'mainSkillId';
+  static const String subSkillIds = 'subSkillIds';
+  static const String profilePicture = 'profilePicture';
 }
 
 //! --- API VALUES (Fixed values that the server expects inside the fields) ---
