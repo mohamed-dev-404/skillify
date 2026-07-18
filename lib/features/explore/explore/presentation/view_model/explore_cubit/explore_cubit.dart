@@ -18,7 +18,7 @@ class ExploreCubit extends Cubit<ExploreState> {
 
   final ExploreRepo exploreRepo;
   final CompleteProfileRepo completeProfileRepo;
-  static const int _pageSize = 10;
+  static const int _pageSize = 5;
   int _requestVersion = 0;
 
   Future<void> initialize() async {
