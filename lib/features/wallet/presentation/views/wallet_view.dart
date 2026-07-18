@@ -16,31 +16,74 @@ class WalletView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Row(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text('Wallet',style: AppStyles.bold28),
+            const _WalletHeader(),
+            Expanded(
+              child: BlocBuilder<WalletCubit, WalletState>(
+                builder: (context, state) {
+                  return switch (state.status) {
+                    WalletStatus.loading ||
+                    WalletStatus.initial => const AnimatedLoadingWidget(
+                      height: 110,
+                    ),
+                    WalletStatus.failure => _WalletFailure(
+                      message: state.errorMessage,
+                      onRetry: context.read<WalletCubit>().fetchWalletData,
+                    ),
+                    WalletStatus.success => _WalletContent(state: state),
+                  };
+                },
+              ),
+            ),
           ],
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        titleTextStyle: AppStyles.bold24.copyWith(
-          color: AppColors.textPrimaryNormal,
-        ),
       ),
-      body: BlocBuilder<WalletCubit, WalletState>(
-        builder: (context, state) {
-          return switch (state.status) {
-            WalletStatus.loading ||
-            WalletStatus.initial => const AnimatedLoadingWidget(height: 110),
-            WalletStatus.failure => _WalletFailure(
-              message: state.errorMessage,
-              onRetry: context.read<WalletCubit>().fetchWalletData,
+    );
+  }
+}
+
+class _WalletHeader extends StatelessWidget {
+  const _WalletHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 6),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Wallet', style: AppStyles.bold28),
+                const Gap(3),
+                Text(
+                  'Track your credits & activity',
+                  style: AppStyles.regular12.copyWith(
+                    color: AppColors.textSecondaryNormal,
+                  ),
+                ),
+              ],
             ),
-            WalletStatus.success => _WalletContent(state: state),
-          };
-        },
+          ),
+          Container(
+            width: 46,
+            height: 46,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundLight,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.borderNormal),
+            ),
+            child: const Icon(
+              Icons.account_balance_wallet_rounded,
+              color: AppColors.primary,
+              size: 22,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -54,13 +97,35 @@ class _WalletContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BalanceCard(balance: state.wallet?.currentBalance ?? 0),
           const SizedBox(height: 28),
-          Text('Recent Transactions', style: AppStyles.bold20),
+          Row(
+            children: [
+              Text('Recent Transactions', style: AppStyles.bold20),
+              const Spacer(),
+              if (state.transactions.isNotEmpty)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryLight,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    '${state.transactions.length}',
+                    style: AppStyles.medium12.copyWith(
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+            ],
+          ),
           const SizedBox(height: 16),
           Expanded(
             child: state.transactions.isEmpty
