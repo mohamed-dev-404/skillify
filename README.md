@@ -8,7 +8,7 @@
 
 ### Skills Exchange Platform
 
-*Trade knowledge through short, focused, real-time sessions — teach what you know, learn what you need.*
+_Trade knowledge through short, focused, real-time sessions — teach what you know, learn what you need._
 
 <br/>
 
@@ -19,11 +19,12 @@
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey?style=for-the-badge&logo=flutter)](https://flutter.dev/multi-platform)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)](#license)
 <a href="https://pub.dev/packages/get_it">
-  <img src="https://img.shields.io/badge/DI-GetIt-4CAF50?style=for-the-badge" alt="GetIt DI"/>
+<img src="https://img.shields.io/badge/DI-GetIt-4CAF50?style=for-the-badge" alt="GetIt DI"/>
 </a>
 <a href="https://pub.dev/packages/go_router">
-  <img src="https://img.shields.io/badge/Routing-go__router-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="go_router"/>
+<img src="https://img.shields.io/badge/Routing-go__router-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="go_router"/>
 </a>
+
 <p align="center">
   <img src="https://img.shields.io/github/stars/mohamed-dev-404/skillify?style=for-the-badge&logo=github&color=DAA520" alt="Stars" />
   <img src="https://img.shields.io/github/forks/mohamed-dev-404/skillify?style=for-the-badge&logo=github&color=E67E22" alt="Forks" />
@@ -47,6 +48,9 @@
   </a>
 </p>
 
+<br/>
+<img src="assets\images\poster.png" alt="Skillify Poster" width="100%"/>
+
 </div>
 
 ---
@@ -57,32 +61,32 @@
 
 **🔷 Overview**
 
-| | Section | |
-|:--:|:--|:--|
-| 📖 | [About the Project](#about-the-project) | `Overview` |
-| ✨ | [Core Features](#core-features) | `Highlights` |
-| 🎬 | [Demo](#demo) | `Coming Soon` |
+|     | Section                                 |               |
+| :-: | :-------------------------------------- | :------------ |
+| 📖  | [About the Project](#about-the-project) | `Overview`    |
+| ✨  | [Core Features](#core-features)         | `Highlights`  |
+| 🎬  | [Demo](#demo)                           | `Coming Soon` |
 
 <br>
 
 **⚙️ Technical**
 
-| | Section | |
-|:--:|:--|:--|
-| 🏗 | [Architecture Overview](#architecture-overview) | `Feature-First · BLoC` |
-| 📁 | [Project Structure](#project-structure) | `lib/ tree` |
-| ⚒  | [Tech Stack & Dependencies](#tech-stack-dependencies) | `Packages & Plugins` |
-| 🚀 | [Getting Started](#getting-started) | `Setup Guide` |
+|     | Section                                               |                        |
+| :-: | :---------------------------------------------------- | :--------------------- |
+| 🏗  | [Architecture Overview](#architecture-overview)       | `Feature-First · BLoC` |
+| 📁  | [Project Structure](#project-structure)               | `lib/ tree`            |
+|  ⚒  | [Tech Stack & Dependencies](#tech-stack-dependencies) | `Packages & Plugins`   |
+| 🚀  | [Getting Started](#getting-started)                   | `Setup Guide`          |
 
 <br>
 
 **📦 Resources**
 
-| | Section | |
-|:--:|:--|:--|
-| 🔗 | [Related Repositories](#related-repositories) | `Flutter · Backend` |
-| 👥 | [Flutter Team](#flutter-team) | `5 contributors` |
-| 📄 | [License](#license) | `All Rights Reserved` |
+|     | Section                                       |                       |
+| :-: | :-------------------------------------------- | :-------------------- |
+| 🔗  | [Related Repositories](#related-repositories) | `Flutter · Backend`   |
+| 👥  | [Flutter Team](#flutter-team)                 | `5 contributors`      |
+| 📄  | [License](#license)                           | `All Rights Reserved` |
 
 ---
 
@@ -108,22 +112,26 @@ The platform creates a structured and fair ecosystem for **Learners** and **Help
 <h2 id="core-features">✨ Core Features</h2>
 
 ### 👤 Onboarding & Profile
+
 - Registration and login with mandatory full-profile completion before accessing any feature
 - Profile setup collecting role, skills offered/needed, profile picture, bio, and spoken languages
 - Full profile editing at any time, reflected immediately on the public profile
 
 ### 🔍 Skills, Search & Discovery
+
 - Predefined main skill categories (e.g. Programming, Design, Marketing, Languages, Business, Fitness) with unlimited user-defined sub-skills
 - Skill-based search plus filtering by minimum rating and spoken language
 - Result cards showing name, primary skills, average rating, and completed session count
 
 ### 🤝 Sessions, Credits & Escrow
+
 - Session requests and offers with topic, fixed duration (15 / 30 / 60 min), schedule, and problem description
 - Accept, decline, and re-offer/counter-propose flows with push notifications at every state change
 - Fixed, non-negotiable credit mapping (15 min = 1 credit, 30 min = 2 credits, 60 min = 4 credits)
 - Credit escrow on acceptance with atomic dual-confirmation release on completion
 
 ### ⭐ Reputation & Communication
+
 - Mandatory post-session numeric rating (1.0–5.0) with optional written review
 - Automatic average-rating calculation and reverse-chronological review listing on profile
 - Automatic badge awarding based on session count, rating, and helping-behaviour milestones
@@ -231,60 +239,60 @@ feature_name/
 
 ### Core
 
-| Package | Purpose |
-|---|---|
-| `flutter` | Cross-platform UI framework (iOS & Android) |
-| `flutter_bloc` | Bloc/Cubit state management |
-| `equatable` | Value equality for Bloc/Cubit state comparisons |
-| `go_router` | Declarative routing & deep linking |
-| `get_it` | Dependency injection (Service Locator) |
-| `dartz` | Functional programming: `Either<L, R>` types |
+| Package        | Purpose                                         |
+| -------------- | ----------------------------------------------- |
+| `flutter`      | Cross-platform UI framework (iOS & Android)     |
+| `flutter_bloc` | Bloc/Cubit state management                     |
+| `equatable`    | Value equality for Bloc/Cubit state comparisons |
+| `go_router`    | Declarative routing & deep linking              |
+| `get_it`       | Dependency injection (Service Locator)          |
+| `dartz`        | Functional programming: `Either<L, R>` types    |
 
 ### Networking & Connectivity
 
-| Package | Purpose |
-|---|---|
-| `dio` | HTTP client for API communication |
+| Package             | Purpose                                |
+| ------------------- | -------------------------------------- |
+| `dio`               | HTTP client for API communication      |
 | `connectivity_plus` | Network connectivity status monitoring |
 
 ### Storage
 
-| Package | Purpose |
-|---|---|
-| `shared_preferences` | Persistent storage for simple data |
+| Package                  | Purpose                                             |
+| ------------------------ | --------------------------------------------------- |
+| `shared_preferences`     | Persistent storage for simple data                  |
 | `flutter_secure_storage` | Encrypted storage for sensitive data (tokens, keys) |
 
 ### UI & UX
 
-| Package | Purpose |
-|---|---|
-| `google_fonts` | Custom typography |
-| `flutter_svg` | SVG asset rendering |
-| `lottie` | Advanced animations |
-| `google_nav_bar` | Modern bottom navigation bar |
-| `gap` | Simplified spacing inside Flex widgets (Column/Row) |
-| `cupertino_icons` / `line_icons` | Icon sets |
-| `fluttertoast` | Toast notifications |
+| Package                          | Purpose                                             |
+| -------------------------------- | --------------------------------------------------- |
+| `google_fonts`                   | Custom typography                                   |
+| `flutter_svg`                    | SVG asset rendering                                 |
+| `lottie`                         | Advanced animations                                 |
+| `google_nav_bar`                 | Modern bottom navigation bar                        |
+| `gap`                            | Simplified spacing inside Flex widgets (Column/Row) |
+| `cupertino_icons` / `line_icons` | Icon sets                                           |
+| `fluttertoast`                   | Toast notifications                                 |
 
 ### Media & File Handling
 
-| Package | Purpose |
-|---|---|
+| Package        | Purpose                                        |
+| -------------- | ---------------------------------------------- |
 | `image_picker` | Selecting images from device library or camera |
 
 ### Integration & Real-Time
 
-| Package | Purpose |
-|---|---|
+| Package                    | Purpose                                                |
+| -------------------------- | ------------------------------------------------------ |
 | `zego_uikit_prebuilt_call` | Pre-built UI components for in-app audio & video calls |
 
 ### Utilities
 
-| Package | Purpose |
-|---|---|
-| `logger` | Extensible logger for clean console output |
-| `intl` | Internationalization, localization, date/number formatting |
-| `flutter_dotenv` | Load environment variables from a `.env` file |
+| Package          | Purpose                                                    |
+| ---------------- | ---------------------------------------------------------- |
+| `logger`         | Extensible logger for clean console output                 |
+| `intl`           | Internationalization, localization, date/number formatting |
+| `flutter_dotenv` | Load environment variables from a `.env` file              |
 
 ### Environment Variables
 
@@ -357,10 +365,10 @@ e.g. demo/onboarding_mobile.gif, demo/search_mobile.gif, demo/sessions_mobile.gi
 
 This Flutter app is the client layer of a two-part system:
 
-| Repository | Description | Link |
-|---|---|---|
-| **Flutter Client** *(this repo)* | Cross-platform mobile application (iOS · Android) | Current Repository |
-| **Backend API** | Auth · Sessions · Credit Escrow · Ratings & Badges | [AhmedMohamed-1/SkillifyAPI](https://github.com/AhmedMohamed-1/SkillifyAPI) |
+| Repository                       | Description                                        | Link                                                                        |
+| -------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Flutter Client** _(this repo)_ | Cross-platform mobile application (iOS · Android)  | Current Repository                                                          |
+| **Backend API**                  | Auth · Sessions · Credit Escrow · Ratings & Badges | [AhmedMohamed-1/SkillifyAPI](https://github.com/AhmedMohamed-1/SkillifyAPI) |
 
 ---
 
