@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:skillify/core/routes/navigations_helper.dart';
+import 'package:skillify/core/utils/assets/app_icons.dart';
 import 'package:skillify/core/utils/colors/app_colors.dart';
 import 'package:skillify/core/utils/styles/app_styles.dart';
+import 'package:skillify/core/widgets/app_scaffold.dart';
+import 'package:skillify/core/widgets/custom_svg_picture.dart';
 import 'package:skillify/features/sessions/data/models/session_model.dart';
 import 'package:skillify/features/sessions/sessions_tab/views/widgets/session_actions_section.dart';
 import 'package:skillify/features/sessions/sessions_tab/views/widgets/session_hint_card.dart';
@@ -20,14 +24,18 @@ class SessionDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
       backgroundColor: AppColors.backgroundLight,
       appBar: AppBar(
         title: Text('Session Details', style: AppStyles.bold20),
         centerTitle: true,
-        backgroundColor: AppColors.backgroundLight,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         iconTheme: const IconThemeData(color: AppColors.textPrimaryNormal),
+        leading: IconButton(
+          onPressed: () => pop(context),
+          icon: const CustomSvgPicture(path: AppIcons.arrowLeftSvg),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,7 +51,11 @@ class SessionDetailsView extends StatelessWidget {
                 ),
               ),
 
-              const Divider(height: 1, thickness: 1, color: AppColors.borderNormal),
+              const Divider(
+                height: 1,
+                thickness: 1,
+                color: AppColors.borderNormal,
+              ),
 
               // Hint Card (displays helpful text based on state)
               Padding(
@@ -52,7 +64,8 @@ class SessionDetailsView extends StatelessWidget {
               ),
 
               // Full Problem Description (if available)
-              if (session.problemDescription.isNotEmpty || session.topic.isNotEmpty) ...[
+              if (session.problemDescription.isNotEmpty ||
+                  session.topic.isNotEmpty) ...[
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.0),
                   child: Text(
@@ -84,7 +97,8 @@ class SessionDetailsView extends StatelessWidget {
                               color: AppColors.textPrimaryNormal,
                             ),
                           ),
-                          if (session.problemDescription.isNotEmpty) const Gap(8),
+                          if (session.problemDescription.isNotEmpty)
+                            const Gap(8),
                         ],
                         if (session.problemDescription.isNotEmpty)
                           Text(
@@ -141,7 +155,11 @@ class SessionDetailsView extends StatelessWidget {
               ),
 
               const Gap(16),
-              const Divider(height: 1, thickness: 1, color: AppColors.borderNormal),
+              const Divider(
+                height: 1,
+                thickness: 1,
+                color: AppColors.borderNormal,
+              ),
               const Gap(24),
 
               // Timeline/History Rows
@@ -183,7 +201,11 @@ class SessionDetailsView extends StatelessWidget {
               // Rating section (only if completed)
               if (session.sessionStatus == SessionStatus.completed) ...[
                 const Gap(24),
-                const Divider(height: 1, thickness: 1, color: AppColors.borderNormal),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: AppColors.borderNormal,
+                ),
                 const Gap(24),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -200,7 +222,9 @@ class SessionDetailsView extends StatelessWidget {
                       ),
                       const Gap(16),
                       if (session.userRated)
-                        SessionRatingIndicator(score: session.userRatingScore.toDouble())
+                        SessionRatingIndicator(
+                          score: session.userRatingScore.toDouble(),
+                        )
                       else if (session.userCanRate)
                         RateSessionPlaceholder(sessionId: session.id)
                       else
@@ -236,7 +260,8 @@ class SessionDetailsView extends StatelessWidget {
               child: SafeArea(
                 child: SessionActionsSection(
                   session: session,
-                  shouldBack: true, // Actions from details page pop back on success
+                  shouldBack:
+                      true, // Actions from details page pop back on success
                 ),
               ),
             )

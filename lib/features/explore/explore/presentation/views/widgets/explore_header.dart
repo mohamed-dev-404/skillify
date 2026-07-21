@@ -22,11 +22,11 @@ class ExploreHeader extends StatelessWidget {
             children: [
               Image.asset(
                 AppImages.logoPng,
-                width: 180,
+                width: 160,
               ),
               const Gap(8),
               Text(
-                'Find the right skill partner for you',
+                ' Find the right skill partner for you',
                 style: AppStyles.regular14.copyWith(
                   color: AppColors.textSecondaryNormal,
                 ),
@@ -35,6 +35,7 @@ class ExploreHeader extends StatelessWidget {
           ),
         ),
         const Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _NotificationBell(),
           ],
@@ -68,7 +69,8 @@ class _NotificationBell extends StatelessWidget {
 }
 
 class HeaderActionButton extends StatelessWidget {
-  const HeaderActionButton({super.key, 
+  const HeaderActionButton({
+    super.key,
     required this.icon,
     required this.iconColor,
     required this.onTap,

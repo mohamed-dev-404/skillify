@@ -35,9 +35,9 @@ class _SessionsViewState extends State<SessionsView>
   }
 
   void _onTabChange() {
-    if (_tabController.indexIsChanging) {
-      context.read<SessionsCubit>().getSessions();
-    }
+    // if (_tabController.indexIsChanging) {
+    //   context.read<SessionsCubit>().getSessions();
+    // }
   }
 
   @override
@@ -46,7 +46,12 @@ class _SessionsViewState extends State<SessionsView>
       children: [
         // Premium Segmented Tab Bar
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          padding: const EdgeInsets.only(
+            left: 24.0,
+            right: 24,
+            bottom: 4,
+            top: 32,
+          ),
           child: ListenableBuilder(
             listenable: _tabController,
             builder: (context, _) {

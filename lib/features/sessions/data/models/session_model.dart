@@ -1,4 +1,5 @@
 import 'package:skillify/core/constants/api_keys.dart';
+import 'package:skillify/core/functions/format_date_time.dart';
 
 enum SessionStatus {
   pending,
@@ -79,23 +80,27 @@ class SessionModel {
       durationMinutes: (json[ApiKeys.durationMinutes] as num).toInt(),
       creditCost: (json[ApiKeys.creditCost] as num).toInt(),
       status: (json[ApiKeys.status] as num).toInt(),
-      scheduledAt: json[ApiKeys.scheduledAt] != null
-          ? DateTime.parse(json[ApiKeys.scheduledAt] as String)
-          : null,
-      acceptedAt: json[ApiKeys.acceptedAt] != null
-          ? DateTime.parse(json[ApiKeys.acceptedAt] as String)
-          : null,
-      completedAt: json[ApiKeys.completedAt] != null
-          ? DateTime.parse(json[ApiKeys.completedAt] as String)
-          : null,
-      createdAt: DateTime.parse(json[ApiKeys.createdAt] as String),
+      scheduledAt: _parseDate(json[ApiKeys.scheduledAt] as String?),
+      acceptedAt: _parseDate(json[ApiKeys.acceptedAt] as String?),
+      completedAt: _parseDate(json[ApiKeys.completedAt] as String?),
+      createdAt:
+          _parseDate(json[ApiKeys.createdAt] as String?) ?? DateTime.now(),
       zegoRoomId: json[ApiKeys.zegoRoomId] as String?,
       userRated: json[ApiKeys.userRated] as bool? ?? false,
       userCanRate: json[ApiKeys.userCanRate] as bool? ?? false,
       userRatingScore: json[ApiKeys.userRatingScore] as num? ?? 0,
       sessionType: type,
-      pendingRescheduleByUser: json[ApiKeys.pendingRescheduleByUser] as bool? ?? false,
+      pendingRescheduleByUser:
+          json[ApiKeys.pendingRescheduleByUser] as bool? ?? false,
     );
+  }
+
+  static DateTime? _parseDate(String? dateStr) {
+    if (dateStr == null) return null;
+    if (!dateStr.toUpperCase().endsWith('Z')) {
+      dateStr = '${dateStr}Z';
+    }
+    return DateTime.parse(dateStr);
   }
 
   Map<String, dynamic> toJson() {
@@ -136,21 +141,8 @@ class SessionModel {
   bool get isReceived => sessionType == SessionType.received;
   SessionType get type => sessionType;
 
-  String get scheduledAtText => _formatDateTime(scheduledAt);
-  String get acceptedAtText => _formatDateTime(acceptedAt);
-  String get completedAtText => _formatDateTime(completedAt);
-  String get createdAtText => _formatDateTime(createdAt);
-
-  String _formatDateTime(DateTime? dateTime) {
-    if (dateTime == null) return '';
-
-    final localDateTime = dateTime.toLocal();
-    final year = localDateTime.year.toString().padLeft(4, '0');
-    final month = localDateTime.month.toString().padLeft(2, '0');
-    final day = localDateTime.day.toString().padLeft(2, '0');
-    final hour = localDateTime.hour.toString().padLeft(2, '0');
-    final minute = localDateTime.minute.toString().padLeft(2, '0');
-
-    return '$year-$month-$day $hour:$minute';
-  }
+  String get scheduledAtText => formatDateTime(scheduledAt);
+  String get acceptedAtText => formatDateTime(acceptedAt);
+  String get completedAtText => formatDateTime(completedAt);
+  String get createdAtText => formatDateTime(createdAt);
 }

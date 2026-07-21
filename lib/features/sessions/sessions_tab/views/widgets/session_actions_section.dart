@@ -53,7 +53,11 @@ class SessionActionsSection extends StatelessWidget {
     }
   }
 
-  _ResolvedActions _resolveActions(SessionModel session, bool shouldBack, VoidCallback? onSuccess) {
+  _ResolvedActions _resolveActions(
+    SessionModel session,
+    bool shouldBack,
+    VoidCallback? onSuccess,
+  ) {
     Widget? joinButton;
     final secondary = <Widget>[];
 
@@ -141,9 +145,9 @@ class SessionActionsSection extends StatelessWidget {
       case SessionStatus.active:
         joinButton = JoinSessionButton(
           params: session.callViewParams,
-          isCompact: false,
+          isCompact: true,
           minWidth: double.infinity,
-          minHeight: 48,
+          minHeight: 40,
           borderRadius: 12,
         );
         break;
