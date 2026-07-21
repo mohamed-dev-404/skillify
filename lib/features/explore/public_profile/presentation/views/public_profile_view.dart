@@ -8,6 +8,7 @@ import 'package:skillify/core/utils/styles/app_styles.dart';
 import 'package:skillify/core/widgets/animated_loading_widget.dart';
 import 'package:skillify/core/widgets/app_scaffold.dart';
 import 'package:skillify/core/widgets/buttons/main_button.dart';
+import 'package:skillify/core/widgets/custom_svg_picture.dart';
 import 'package:skillify/features/explore/data/models/public_profile/public_profile_model.dart';
 import 'package:skillify/features/explore/offer_session/presentation/views/offer_session_button.dart';
 import 'package:skillify/features/explore/public_profile/presentation/view_model/public_profile_cubit/public_profile_cubit.dart';
@@ -26,10 +27,7 @@ class PublicProfileView extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => pop(context),
-          icon: Image.asset(
-            AppIcons.iconLogoPng,
-            width: 230,
-          ),
+          icon: const CustomSvgPicture(path: AppIcons.arrowLeftSvg),
         ),
       ),
       body: SafeArea(

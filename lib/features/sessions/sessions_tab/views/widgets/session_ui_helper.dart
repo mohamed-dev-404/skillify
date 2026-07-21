@@ -205,7 +205,7 @@ class SessionStatusHint {
           return 'You received a session request. Please accept or decline it.';
         }
       case SessionStatus.accepted:
-        return 'Both participants accepted this session. You\'ll be able to join the call 2 minutes before the scheduled time.';
+        return 'Both participants accepted this session. You\'ll be able to join the call at scheduled time.';
       case SessionStatus.active:
         return 'The session is currently live. You can join the call now.';
       case SessionStatus.reOffered:

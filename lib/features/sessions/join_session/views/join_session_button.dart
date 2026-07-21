@@ -11,7 +11,7 @@ class JoinSessionButton extends StatelessWidget {
     required this.params,
     this.label = 'Join Session',
     this.minWidth = double.infinity,
-    this.minHeight = 48,
+    this.minHeight = 42,
     this.borderRadius = 14,
     this.isCompact = false,
   });
