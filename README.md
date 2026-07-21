@@ -6,7 +6,7 @@
 
 # Skillify
 
-### Skill Exchange Platform
+### Skills Exchange Platform
 
 *Trade knowledge through short, focused, real-time sessions — teach what you know, learn what you need.*
 
@@ -39,11 +39,11 @@
 
 <p align="center">
   <a href="https://skillify-connect-learn.lovable.app">
-    <img src="https://img.shields.io/badge/Presentation%20%2F%20Demo%20Site-View%20Online-4CAF50?style=for-the-badge&logo=vercel&logoColor=white" alt="Presentation / Demo Site"/>
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Presentation_Site-6C5CE7?style=for-the-badge&logoColor=white" alt="Presentation / Demo Site"/>
   </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://drive.google.com/drive/u/0/folders/1czMnkS1ASMWm0zNVvF_ThpkLFb1hi8Pz">
-    <img src="https://img.shields.io/badge/Download-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download APK"/>
+    <img src="https://img.shields.io/badge/📱_Download-APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download APK"/>
   </a>
 </p>
 
