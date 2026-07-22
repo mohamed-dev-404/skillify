@@ -10,6 +10,36 @@
 
 _Trade knowledge through short, focused, real-time sessions — teach what you know, learn what you need._
 
+
+<p align="center">
+
+![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)
+![Portfolio](https://img.shields.io/badge/Portfolio-View%20Only-orange?style=for-the-badge)
+![Commercial Use](https://img.shields.io/badge/Commercial%20Use-Prohibited-critical?style=for-the-badge)
+
+</p>
+
+---
+
+> [!IMPORTANT]
+> ### 🔒 Copyright & Usage Notice
+>
+> **Skillify** is published as a **professional portfolio project**. The source code is made publicly available strictly **for viewing and technical evaluation purposes** — this is not an open-source release.
+>
+> Unless explicitly authorized in writing by the copyright holders, you may **not**:
+>
+> &nbsp;&nbsp;🚫&nbsp; Copy or reuse any part of this project
+> &nbsp;&nbsp;🚫&nbsp; Modify the code or create derivative works
+> &nbsp;&nbsp;🚫&nbsp; Redistribute the source code, in whole or in part
+> &nbsp;&nbsp;🚫&nbsp; Use the project for academic or commercial purposes
+>
+> <br>
+>
+> **© 2026 Skillify Team — All Rights Reserved**
+> *Mohamed Ibrahim&nbsp;•&nbsp;Mohamed AboGM&nbsp;•&nbsp;Kerelos Aissam&nbsp;•&nbsp;Sohaib Khalifa&nbsp;•&nbsp;Marwan Muhammad*
+
+---
+
 <br/>
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
@@ -17,7 +47,6 @@ _Trade knowledge through short, focused, real-time sessions — teach what you k
 [![BLoC](https://img.shields.io/badge/State_Management-BLoC-blue?style=for-the-badge)](https://bloclibrary.dev/)
 [![Feature--First](https://img.shields.io/badge/Pattern-Feature--First-ff69b4?style=for-the-badge)](https://docs.flutter.dev/app-architecture/guide)
 [![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey?style=for-the-badge&logo=flutter)](https://flutter.dev/multi-platform)
-[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red?style=for-the-badge)](#license)
 <a href="https://pub.dev/packages/get_it">
 <img src="https://img.shields.io/badge/DI-GetIt-4CAF50?style=for-the-badge" alt="GetIt DI"/>
 </a>
@@ -76,7 +105,6 @@ _Trade knowledge through short, focused, real-time sessions — teach what you k
 | 🏗  | [Architecture Overview](#architecture-overview)       | `Feature-First · BLoC` |
 | 📁  | [Project Structure](#project-structure)               | `lib/ tree`            |
 |  ⚒  | [Tech Stack & Dependencies](#tech-stack-dependencies) | `Packages & Plugins`   |
-| 🚀  | [Getting Started](#getting-started)                   | `Setup Guide`          |
 
 <br>
 
@@ -127,7 +155,7 @@ The platform creates a structured and fair ecosystem for **Learners** and **Help
 
 - Session requests and offers with topic, fixed duration (15 / 30 / 60 min), schedule, and problem description
 - Accept, decline, and re-offer/counter-propose flows with push notifications at every state change
-- Fixed, non-negotiable credit mapping (15 min = 1 credit, 30 min = 2 credits, 60 min = 4 credits)
+- Fixed, non-negotiable credit mapping (15 min = 15 credit, 30 min = 30 credits, 60 min = 60 credits)
 - Credit escrow on acceptance with atomic dual-confirmation release on completion
 
 ### ⭐ Reputation & Communication
@@ -300,64 +328,15 @@ Setup requires a `.env` file in the root directory (refer to `.env.example`).
 
 ---
 
-<h2 id="getting-started">🚀 Getting Started</h2>
-
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) `>=3.x`
-- [Dart SDK](https://dart.dev/get-dart) `>=3.x`
-- Android Studio / Xcode (for mobile targets)
-
-### Installation
-
-**1. Clone the repository**
-
-```bash
-git clone https://github.com/mohamed-dev-404/skillify.git
-cd skillify
-```
-
-**2. Clean any previous build artifacts**
-
-```bash
-flutter clean
-```
-
-**3. Install dependencies**
-
-```bash
-flutter pub get
-```
-
-**4. Configure environment variables**
-
-```bash
-cp .env.example .env
-# then fill in the required values
-```
-
-**5. Run the application**
-
-```bash
-# Run on connected mobile device or emulator
-flutter run
-
-# Build a release APK
-flutter build apk --release
-```
-
----
-
 <h2 id="demo">🎬 Demo</h2>
 
-> GIFs coming soon.
+<div align="center">
 
-<!--
-Demo GIFs will follow the pattern: demo/<feature>_<platform>.gif
-e.g. demo/onboarding_mobile.gif, demo/search_mobile.gif, demo/sessions_mobile.gif
--->
+🎥 **[Watch the full app walkthrough (Google Drive)](https://drive.google.com/drive/folders/1a4ohH4-nAtKF1nkmj6BisL8KXaXVmt-f?usp=sharing)**
+
+*Full app walkthrough — onboarding, skill setup, search & discovery, session booking, credit escrow, and in-app calls.*
+
+</div>
 
 ---
 
@@ -415,11 +394,19 @@ The following contributors are responsible for the Flutter client application:
 
 <h2 id="license">📄 License</h2>
 
-Copyright © 2026 Skillify Team.
+**All Rights Reserved © 2026 — Skillify Team**
 
-**All Rights Reserved.**
+This project — including all source code, assets, branding, and documentation — is the intellectual property of the Skillify development team and is published **for portfolio and technical-evaluation purposes only**.
 
-This project and all its source code, assets, and documentation are the intellectual property of the Skillify development team. No part of this project may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of the authors.
+No part of this project may be copied, modified, redistributed, or used for academic or commercial purposes without prior written permission from the copyright holders.
+
+> See the [Copyright & Usage Notice](#top) at the top of this document for full details.
+
+<div align="center">
+
+*Mohamed Ibrahim&nbsp;•&nbsp;Mohamed AboGM&nbsp;•&nbsp;Kerelos Aissam&nbsp;•&nbsp;Sohaib Khalifa&nbsp;•&nbsp;Marwan Muhammad*
+
+</div>
 
 ---
 
